@@ -5,100 +5,92 @@ import "swiper/css";
 import "swiper/css/pagination";
 // import required modules
 import { Pagination } from "swiper";
-
+import { motion } from 'framer-motion';
+import HomeToolsCard from './HomeToolsCard';
 const HomeTools = () => {
+    const homeToolsData = [
+        {
+            img: 'https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png',
+            name: 'ElectTool Plus',
+            desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
+            minOrder: 100,
+            available: 1000,
+            price: 100
+
+        },
+        {
+            img: 'https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png',
+            name: 'ElectTool Plus',
+            desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
+            minOrder: 100,
+            available: 1000,
+            price: 100
+
+        },
+        {
+            img: 'https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png',
+            name: 'ElectTool Plus',
+            desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
+            minOrder: 100,
+            available: 1000,
+            price: 100
+
+        },
+        {
+            img: 'https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png',
+            name: 'ElectTool Plus',
+            desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
+            minOrder: 100,
+            available: 1000,
+            price: 100
+
+        },
+        {
+            img: 'https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png',
+            name: 'ElectTool Plus',
+            desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
+            minOrder: 100,
+            available: 1000,
+            price: 100
+
+        },
+        {
+            img: 'https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png',
+            name: 'ElectTool Plus',
+            desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
+            minOrder: 100,
+            available: 1000,
+            price: 100
+
+        }
+    ]
     return (
         <div className='container mx-auto mb-[100px]'>
             <h1 className='text-4xl font-semi'>Our Electronic Tools</h1>
             <Swiper
                 slidesPerView={4}
                 spaceBetween={30}
-
+                breakpoints={{
+                    640: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 40,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 50,
+                    },
+                }}
 
                 modules={[Pagination]}
                 className="mySwiper"
             >
-
-                <SwiperSlide><div className='h-[100%] '><div class="card w-96 bg-base-100">
-                    <figure class="px-10 pt-10">
-                        <img src="https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png" alt="Shoes" class="rounded-xl" />
-                    </figure>
-                    <div class="card-body items-center text-center">
-                        <h2 class="card-title">Shoes!</h2>
-                        <p>If a dog chews shoes whose shoes does he choose?</p>
-                        <div class="card-actions">
-                            <button class="btn btn-primary">Buy Now</button>
-                        </div>
-                    </div>
-                </div></div>
-                </SwiperSlide>
-                <SwiperSlide><div className='h-[100%] '><div class="card w-96 bg-base-100">
-                    <figure class="px-10 pt-10">
-                        <img src="https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png" alt="Shoes" class="rounded-xl" />
-                    </figure>
-                    <div class="card-body items-center text-center">
-                        <h2 class="card-title">Shoes!</h2>
-                        <p>If a dog chews shoes whose shoes does he choose?</p>
-                        <div class="card-actions">
-                            <button class="btn btn-primary">Buy Now</button>
-                        </div>
-                    </div>
-                </div></div>
-                </SwiperSlide>
-                <SwiperSlide><div className='h-[100%] '><div class="card w-96 bg-base-100">
-                    <figure class="px-10 pt-10">
-                        <img src="https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png" alt="Shoes" class="rounded-xl" />
-                    </figure>
-                    <div class="card-body items-center text-center">
-                        <h2 class="card-title">Shoes!</h2>
-                        <p>If a dog chews shoes whose shoes does he choose?</p>
-                        <div class="card-actions">
-                            <button class="btn btn-primary">Buy Now</button>
-                        </div>
-                    </div>
-                </div></div>
-                </SwiperSlide>
-                <SwiperSlide><div className='h-[100%] '><div class="card w-96 bg-base-100">
-                    <figure class="px-10 pt-10">
-                        <img src="https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png" alt="Shoes" class="rounded-xl" />
-                    </figure>
-                    <div class="card-body items-center text-center">
-                        <h2 class="card-title">Shoes!</h2>
-                        <p>If a dog chews shoes whose shoes does he choose?</p>
-                        <div class="card-actions">
-                            <button class="btn btn-primary">Buy Now</button>
-                        </div>
-                    </div>
-                </div></div>
-                </SwiperSlide>
-                <SwiperSlide><div className='h-[100%] '><div class="card w-96 bg-base-100">
-                    <figure class="px-10 pt-10">
-                        <img src="https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png" alt="Shoes" class="rounded-xl" />
-                    </figure>
-                    <div class="card-body items-center text-center">
-                        <h2 class="card-title">Shoes!</h2>
-                        <p>If a dog chews shoes whose shoes does he choose?</p>
-                        <div class="card-actions">
-                            <button class="btn btn-primary">Buy Now</button>
-                        </div>
-                    </div>
-                </div></div>
-                </SwiperSlide>
-                <SwiperSlide><div className='h-[100%] '><div class="card w-96 bg-base-100">
-                    <figure class="px-10 pt-10">
-                        <img src="https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png" alt="Shoes" class="rounded-xl" />
-                    </figure>
-                    <div class="card-body items-center text-center">
-                        <h2 class="card-title">Shoes!</h2>
-                        <p>If a dog chews shoes whose shoes does he choose?</p>
-                        <div class="card-actions">
-                            <button class="btn btn-primary">Buy Now</button>
-                        </div>
-                    </div>
-                </div></div>
-                </SwiperSlide>
-
-
+                {
+                    homeToolsData.map(tool => <SwiperSlide><HomeToolsCard tool={tool} /></SwiperSlide>)
+                }
             </Swiper>
         </div>
     );
