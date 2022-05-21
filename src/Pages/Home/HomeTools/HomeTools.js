@@ -15,7 +15,8 @@ const HomeTools = () => {
             desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
             minOrder: 100,
             available: 1000,
-            price: 100
+            price: 100,
+            rating: 4
 
         },
         {
@@ -24,7 +25,8 @@ const HomeTools = () => {
             desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
             minOrder: 100,
             available: 1000,
-            price: 100
+            price: 100,
+            rating: 5
 
         },
         {
@@ -33,7 +35,8 @@ const HomeTools = () => {
             desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
             minOrder: 100,
             available: 1000,
-            price: 100
+            price: 100,
+            rating: 4
 
         },
         {
@@ -42,7 +45,8 @@ const HomeTools = () => {
             desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
             minOrder: 100,
             available: 1000,
-            price: 100
+            price: 100,
+            rating: 3
 
         },
         {
@@ -51,7 +55,8 @@ const HomeTools = () => {
             desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
             minOrder: 100,
             available: 1000,
-            price: 100
+            price: 100,
+            rating: 4
 
         },
         {
@@ -60,12 +65,13 @@ const HomeTools = () => {
             desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
             minOrder: 100,
             available: 1000,
-            price: 100
+            price: 100,
+            rating: 5
 
         }
     ]
     return (
-        <div className='container mx-auto mb-[100px]'>
+        <div className='container mx-auto'>
             <h1 className='text-4xl font-semi'>Our Electronic Tools</h1>
             <Swiper
                 slidesPerView={4}
