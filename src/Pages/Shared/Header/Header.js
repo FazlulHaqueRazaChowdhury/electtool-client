@@ -1,9 +1,9 @@
 import React from 'react';
-
+import { motion } from 'framer-motion';
 const Header = () => {
     return (
-        <header className=' bg-base-100'>
-            <div class="navbar container mx-auto">
+        <header className='fixed w-full top-0 z-10 text-white'>
+            <motion.div initial={{ y: '-100vh' }} animate={{ y: '0' }} transition={{ delay: .5 }} class="navbar container mx-auto h-[100px]">
                 <div class="navbar-start">
                     <div class="dropdown">
                         <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -15,22 +15,22 @@ const Header = () => {
                                 For Mobile Devices
                                 */
                             }
-                            <li><a>HOME</a></li>
+                            <motion.li whileHover={{ scale: 1.2 }}><a>HOME</a></motion.li>
                             {/* <li tabindex="0">
                                 <a class="justify-between">
                                     Parent
                                     <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
                                 </a>
                                 <ul class="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
+                                    <motion.li whileHover={{scale: 1.2}}><a>Submenu 1</a></motion.li>
+                                    <motion.li whileHover={{scale: 1.2}}><a>Submenu 2</a></motion.li>
                                 </ul>
-                            </li> */}
-                            <li><a>PRODUCTS</a></li>
-                            <li><a>REVIEWS</a></li>
-                            <li><a>BLOGS</a></li>
-                            <li><a>LOGIN</a></li>
-                            <li><a>DASHBOARD</a></li>
+                            </motion.li> */}
+                            <motion.li whileHover={{ scale: 1.2 }}><a>PRODUCTS</a></motion.li>
+                            <motion.li whileHover={{ scale: 1.2 }}><a>REVIEWS</a></motion.li>
+                            <motion.li whileHover={{ scale: 1.2 }}><a>BLOGS</a></motion.li>
+                            <motion.li whileHover={{ scale: 1.2 }}><a>LOGIN</a></motion.li>
+                            <motion.li whileHover={{ scale: 1.2 }}><a>DASHBOARD</a></motion.li>
                         </ul>
                     </div>
                     <a class="btn btn-ghost normal-case text-3xl"><span className='text-primary'>Elect</span>Tool</a>
@@ -38,22 +38,22 @@ const Header = () => {
                 <div class="navbar-center hidden lg:flex">
                     <ul class="menu menu-horizontal p-0">
                         {/* For Desktop Devices */}
-                        <li><a>HOME</a></li>
+                        <motion.li whileHover={{ scale: 1.2 }}><a>HOME</a></motion.li>
                         {/* <li tabindex="0">
                             <a>
                                 Parent
                                 <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
                             </a>
                             <ul class="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
+                                <motion.li whileHover={{scale: 1.2}}><a>Submenu 1</a></motion.li>
+                                <motion.li whileHover={{scale: 1.2}}><a>Submenu 2</a></motion.li>
                             </ul>
-                        </li> */}
-                        <li><a>PRODUCTS</a></li>
-                        <li><a>REVIEWS</a></li>
-                        <li><a>BLOGS</a></li>
-                        <li><a>LOGIN</a></li>
-                        <li><a>DASHBOARD</a></li>
+                        </motion.li> */}
+                        <motion.li whileHover={{ scale: 1.2 }}><a>PRODUCTS</a></motion.li>
+                        <motion.li whileHover={{ scale: 1.2 }}><a>REVIEWS</a></motion.li>
+                        <motion.li whileHover={{ scale: 1.2 }}><a>BLOGS</a></motion.li>
+                        <motion.li whileHover={{ scale: 1.2 }}><a>LOGIN</a></motion.li>
+                        <motion.li whileHover={{ scale: 1.2 }}><a>DASHBOARD</a></motion.li>
                     </ul>
                 </div>
                 <div class="navbar-end">
@@ -64,7 +64,7 @@ const Header = () => {
                     </div>
                     <h1 className='text-2xl ml-2'>Sokina Khanom</h1>
                 </div>
-            </div>
+            </motion.div>
         </header>
     );
 };

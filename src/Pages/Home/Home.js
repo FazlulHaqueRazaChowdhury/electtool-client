@@ -3,8 +3,8 @@ import { motion } from "framer-motion"
 import Banner from './Banner/Banner';
 const Home = () => {
     return (
-        <div>
-            This is home
+        <div className='-z-20'>
+
             <Banner />
         </div>
     );
