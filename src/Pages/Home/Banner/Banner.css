@@ -26,7 +26,7 @@
 .overlay{
     min-height:70vh ;
     background-position: center;
-    background-color: rgba(0, 0, 0, 0.363);
+    background-color: rgba(0, 0, 0, 0.507);
 }
 .swiper-pagination-bullet{
         padding: 10px;
