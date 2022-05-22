@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 const ArrivalCard = ({ arrival }) => {
     const { bg, name, price, img } = arrival;
+
     return (
         <button>
             <motion.div whileHover={{

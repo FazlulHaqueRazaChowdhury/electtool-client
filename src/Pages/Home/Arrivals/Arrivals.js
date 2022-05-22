@@ -7,19 +7,19 @@ const Arrivals = () => {
             img: 'https://i.ibb.co/g9kB721/Drilling-Machine-Transparent-Background.png',
             name: 'Drill Machine',
             price: 689.99,
-            bg: 'bg-blue-700'
+            bg: 'bg-accent'
         },
         {
             img: 'https://i.ibb.co/g9kB721/Drilling-Machine-Transparent-Background.png',
             name: 'Wood Sharpener',
             price: 689.99,
-            bg: 'bg-green-600'
+            bg: 'bg-neutral'
         },
         {
             img: 'https://i.ibb.co/g9kB721/Drilling-Machine-Transparent-Background.png',
             name: 'Wood Sharpener',
             price: 689.99,
-            bg: 'bg-orange-700'
+            bg: 'bg-primary'
         }
     ]
     return (

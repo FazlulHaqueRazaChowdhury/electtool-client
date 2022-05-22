@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import DarkModeToggle from "react-dark-mode-toggle";
+import { Link } from 'react-router-dom';
 const Header = ({ dark, setDark }) => {
     const [nav, setNavbar] = useState(false);
     const changeBackground = () => {
@@ -53,7 +54,7 @@ const Header = ({ dark, setDark }) => {
                 <div class="navbar-center hidden lg:flex">
                     <ul class="menu menu-horizontal p-0">
                         {/* For Desktop Devices */}
-                        <motion.li whileHover={{ scale: 1.2, originX: 0 }}><a>HOME</a></motion.li>
+                        <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/'>HOME</Link></motion.li>
                         {/* <li tabindex="0">
                             <a>
                                 Parent
@@ -64,11 +65,11 @@ const Header = ({ dark, setDark }) => {
                                 <motion.li whileHover={{scale: 1.2, originX:0}}><a>Submenu 2</a></motion.li>
                             </ul>
                         </motion.li> */}
-                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><a>PRODUCTS</a></motion.li>
-                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><a>REVIEWS</a></motion.li>
-                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><a>BLOGS</a></motion.li>
-                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><a>LOGIN</a></motion.li>
-                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><a>DASHBOARD</a></motion.li>
+                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/products'>PRODUCTS</Link></motion.li>
+                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/reviews'>REVIEWS</Link></motion.li>
+                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/blogs'>BLOGS</Link></motion.li>
+                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/login'>LOGIN</Link></motion.li>
+                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/dashboard'>DASHBOARD</Link></motion.li>
                     </ul>
                 </div>
                 <div class="navbar-end">

@@ -1,18 +1,21 @@
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
-
+import { motion } from 'framer-motion';
 const HomeToolsCard = ({ tool }) => {
     const { img, desc, name, price, minOrder, available, rating } = tool;
     let leftStar = 5 - rating;
     return (
 
-        <div className='h-[100%] '><div class="card lg:w-96 ">
+        <div className='h-[100%] '><div class="card lg:w-96 mx-auto">
             <figure class="px-10 pt-10">
-                <img src="https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png" alt="Shoes" class="rounded-xl" />
+                <motion.img whileHover={{
+                    scale: 1.1,
+                    rotateZ: '20deg'
+                }} src={img} alt="Shoes" class="rounded-xl h-[304px] object-contain" />
             </figure>
             <div class="card-body items-center text-center">
                 <h2 class="card-title">{name}</h2>
-                <p>{desc}</p>
+                <p className='h-[50px] overflow-hidden'>{desc.length > 75 ? desc.slice(0, 75) + '....' : desc}</p>
                 <div className="minNquantity flex gap-x-2 text-[14px]">
                     <p>Min Order : <span className='text-primary font-bold'>{minOrder} pieces</span></p>
                     <p>Quantity : <span className='text-primary font-bold'>{available} left</span></p>

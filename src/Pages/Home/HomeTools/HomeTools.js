@@ -7,69 +7,13 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper";
 import { motion } from 'framer-motion';
 import HomeToolsCard from './HomeToolsCard';
+import useProducts from '../../../hook/useProducts';
+import Loading from '../../Shared/Loading/Loading';
 const HomeTools = () => {
-    const homeToolsData = [
-        {
-            img: 'https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png',
-            name: 'ElectTool Plus',
-            desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
-            minOrder: 100,
-            available: 1000,
-            price: 100,
-            rating: 4
-
-        },
-        {
-            img: 'https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png',
-            name: 'ElectTool Plus',
-            desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
-            minOrder: 100,
-            available: 1000,
-            price: 100,
-            rating: 5
-
-        },
-        {
-            img: 'https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png',
-            name: 'ElectTool Plus',
-            desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
-            minOrder: 100,
-            available: 1000,
-            price: 100,
-            rating: 4
-
-        },
-        {
-            img: 'https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png',
-            name: 'ElectTool Plus',
-            desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
-            minOrder: 100,
-            available: 1000,
-            price: 100,
-            rating: 0
-
-        },
-        {
-            img: 'https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png',
-            name: 'ElectTool Plus',
-            desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
-            minOrder: 100,
-            available: 1000,
-            price: 100,
-            rating: 4
-
-        },
-        {
-            img: 'https://i.ibb.co/8gRt0FQ/png-multi-tool-46528.png',
-            name: 'ElectTool Plus',
-            desc: 'Especially Made of carbon fiber. Try this one on your next electronic jobs.',
-            minOrder: 100,
-            available: 1000,
-            price: 100,
-            rating: 5
-
-        }
-    ]
+    const [products, loading] = useProducts(6);
+    if (loading) {
+        return <Loading />
+    }
     return (
         <div className='container mx-auto'>
             <h1 className='text-4xl font-semi'>Our Electronic Tools</h1>
@@ -99,7 +43,7 @@ const HomeTools = () => {
                 className="mySwiper"
             >
                 {
-                    homeToolsData.map(tool => <SwiperSlide><HomeToolsCard tool={tool} /></SwiperSlide>)
+                    products.map(tool => <SwiperSlide key={tool._id}><HomeToolsCard tool={tool} /></SwiperSlide>)
                 }
             </Swiper>
         </div>
