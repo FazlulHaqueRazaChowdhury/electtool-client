@@ -1,15 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import auth from '../../firebase.init';
 import useProducts from '../../hook/useProducts';
+import Loading from '../Shared/Loading/Loading';
 
 const Purchase = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm({
         mode: 'onSubmit',
         reValidateMode: 'onChange',
     });
-
+    const [user, loading, error] = useAuthState(auth);
     const onSubmit = data => {
 
     };
@@ -25,9 +28,14 @@ const Purchase = () => {
 
     }, [])
     const watchQuantity = watch("quantity", parseInt(product?.minOrder));
-
-
     const remainStar = 5 - product?.rating;
+
+    if (user) {
+        console.log(user);
+    }
+    if (loading) {
+        return <Loading />
+    }
     return (
         <div className='bg-base-100 min-h-screen flex items-center'>
             <section class="body-font overflow-hidden mx-auto bg-base-100">
@@ -40,7 +48,7 @@ const Purchase = () => {
                             <div class="flex mb-4">
                                 <div class="rating">
                                     {
-                                        [...Array(product?.rating || 0).keys()].map(star => <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" checked disabled />)
+                                        [...Array(product?.rating || 0).keys()].map(star => <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" disabled />)
 
                                     }
                                     {
@@ -84,11 +92,11 @@ const Purchase = () => {
                                     <p class="font-medium">Customer information</p>
                                     <div class="">
                                         <label class="block text-sm " for="cus_name">Name</label>
-                                        <input class="w-full px-5 py-1 input input-bordered rounded" id="cus_name" name="cus_name" type="text" required="" placeholder="Your Name" aria-label="Name" />
+                                        <input class="w-full px-5 py-1 input input-bordered rounded" id="cus_name" name="cus_name" type="text" required="" placeholder="Your Name" aria-label="Name" value={user?.displayName} />
                                     </div>
                                     <div class="mt-2">
                                         <label class="block text-sm" for="cus_email">Email</label>
-                                        <input class="w-full px-5  py-4 input input-bordered rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="Your Email" aria-label="Email" />
+                                        <input class="w-full px-5  py-4 input input-bordered rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="Your Email" aria-label="Email" value={user?.email} />
                                     </div>
                                     <div class="mt-2">
                                         <label class=" block text-sm " for="cus_email">Address</label>

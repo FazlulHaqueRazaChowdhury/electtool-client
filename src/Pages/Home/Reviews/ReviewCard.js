@@ -10,7 +10,7 @@ const ReviewCard = ({ review }) => {
                     <p className='italic'>"{desc}"</p>
                     <div class="rating justify-center">
                         {
-                            [...Array(rating).keys()].map(star => <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" checked disabled />)
+                            [...Array(rating).keys()].map(star => <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" disabled />)
 
                         }
                         {

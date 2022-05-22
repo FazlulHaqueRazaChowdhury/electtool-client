@@ -10,6 +10,7 @@ import LogIn from './Pages/Authentication/LogIn/LogIn';
 import SignUp from './Pages/Authentication/SignUp/SignUp';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import RequireAuth from './Pages/Authentication/RequrieAuth/RequireAuth';
 function App() {
   const [dark, setDark] = useState(false);
   return (
@@ -18,7 +19,11 @@ function App() {
 
       <Routes>
         <Route path='/' element={<Home />}></Route>
-        <Route path='/purchase/:id' element={<Purchase />}></Route>
+        <Route path='/purchase/:id' element={
+          <RequireAuth>
+            <Purchase />
+          </RequireAuth>
+        }></Route>
         <Route path='/logIn' element={<LogIn />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>
       </Routes>
