@@ -7,6 +7,7 @@ import Summary from './Summary/Summary';
 import Footer from '../Shared/Footer/Footer';
 import Reviews from './Reviews/Reviews';
 import CompanyPolicy from './CompanyPolicy/CompanyPolicy';
+import Contact from './Contact/Contact';
 const Home = () => {
     return (
         <div className='-z-20 flex flex-col gap-y-[100px] bg-base-100'>
@@ -16,6 +17,7 @@ const Home = () => {
             <HomeTools />
             <Summary />
             <Reviews />
+            <Contact />
             <Footer />
         </div>
     );
