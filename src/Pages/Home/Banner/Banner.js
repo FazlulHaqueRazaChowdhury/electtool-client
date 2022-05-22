@@ -39,61 +39,64 @@ const Banner = () => {
                 pagination={{
                     clickable: true,
                 }}
-
+                autoplay={{
+                    delay: 5500
+                }}
                 modules={[EffectFade, Autoplay, Navigation, Pagination]}
                 className="mySwiper"
             >
                 {
-                    slideId.map(slide => <SwiperSlide>
-                        {({ isActive }) => (
-                            <motion.div id={slide.id} initial={{ opacity: 1, scale: 1 }}
-                                animate={{
-                                    opacity: isActive ? 1 : 1,
-                                    scale: isActive ? 1 : 1,
-                                }}>
-                                <div className="overlay flex justify-center items-center">
-                                    <div className="text-part container mt-5 ">
-                                        <motion.h1 initial={{ x: '-100vw' }}
-                                            animate={{
-                                                x: isActive ? 0 : '-100vw'
-                                            }}
-                                            className="text-7xl font-lily text-white">
-                                            {
-                                                slide.title
-                                            }
-                                        </motion.h1>
-                                        <motion.p initial={{ y: '-100vh' }}
-                                            animate={{
-                                                y: isActive ? 0 : '-100vh'
-                                            }}
-                                            transition={{
-                                                delay: .7,
-                                            }}
-                                            className="text-3xl font-semi text-white  lg:w-[50%] mt-5 ">
-                                            {
-                                                slide.para
-                                            }
-                                        </motion.p>
-                                        <motion.button
-                                            initial={{ x: '-100vw' }}
-                                            animate={{
-                                                x: isActive ? 0 : '-100vw'
-                                            }}
-                                            transition={{
-                                                delay: .8,
-                                            }}
+                    slideId.map(slide =>
+                        <SwiperSlide>
+                            {({ isActive }) => (
+                                <motion.div id={slide.id} initial={{ opacity: 1, scale: 1 }}
+                                    animate={{
+                                        opacity: isActive ? 1 : 1,
+                                        scale: isActive ? 1 : 1,
+                                    }}>
+                                    <div className="overlay flex justify-center items-center">
+                                        <div className="text-part container mt-5 ">
+                                            <motion.h1 initial={{ x: '-100vw' }}
+                                                animate={{
+                                                    x: isActive ? 0 : '-100vw'
+                                                }}
+                                                className="text-7xl font-lily text-white">
+                                                {
+                                                    slide.title
+                                                }
+                                            </motion.h1>
+                                            <motion.p initial={{ y: '-100vh' }}
+                                                animate={{
+                                                    y: isActive ? 0 : '-100vh'
+                                                }}
+                                                transition={{
+                                                    delay: .7,
+                                                }}
+                                                className="text-3xl font-semi text-white  lg:w-[50%] mt-5 ">
+                                                {
+                                                    slide.para
+                                                }
+                                            </motion.p>
+                                            <motion.button
+                                                initial={{ x: '-100vw' }}
+                                                animate={{
+                                                    x: isActive ? 0 : '-100vw'
+                                                }}
+                                                transition={{
+                                                    delay: .8,
+                                                }}
 
-                                            className="btn btn-primary mt-5 w-[200px] h-[10px] font-semi">
-                                            {
-                                                slide.btn
-                                            }
-                                        </motion.button>
+                                                className="btn btn-primary mt-5 w-[200px] h-[10px] font-semi">
+                                                {
+                                                    slide.btn
+                                                }
+                                            </motion.button>
+                                        </div>
                                     </div>
-                                </div>
 
-                            </motion.div>
-                        )}
-                    </SwiperSlide>)
+                                </motion.div>
+                            )}
+                        </SwiperSlide>)
                 }
 
 
