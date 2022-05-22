@@ -5,15 +5,28 @@ import { useParams } from 'react-router-dom';
 import useProducts from '../../hook/useProducts';
 
 const Purchase = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const { register, handleSubmit, watch, formState: { errors } } = useForm({
+        mode: 'onSubmit',
+        reValidateMode: 'onChange',
+    });
+
+    const onSubmit = data => {
+
+    };
     const params = useParams();
     const { id } = params;
     const [product, setProduct] = useState({});
+
     useEffect(() => {
         axios.get(`http://localhost:5000/products/${id}`)
-            .then(res => setProduct(res.data));
+            .then(res => {
+                setProduct(res.data);
+            });
+
     }, [])
+    const watchQuantity = watch("quantity", parseInt(product?.minOrder));
+
+
     const remainStar = 5 - product?.rating;
     return (
         <div className='bg-base-100 min-h-screen flex items-center'>
@@ -34,23 +47,7 @@ const Purchase = () => {
                                         [...Array(remainStar || 0).keys()].map(star => <input type="radio" name="rating-2" class="mask mask-star-2 bg-gray-400" disabled />)
                                     }
                                 </div>
-                                <span class="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
-                                    <a class="   ">
-                                        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-                                        </svg>
-                                    </a>
-                                    <a class="ml-2    ">
-                                        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-                                        </svg>
-                                    </a>
-                                    <a class="ml-2    ">
-                                        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                                            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-                                        </svg>
-                                    </a>
-                                </span>
+
                             </div>
                             <p class="leading-relaxed">{product?.desc}</p>
                             <form onSubmit={handleSubmit(onSubmit)}>
@@ -62,28 +59,59 @@ const Purchase = () => {
 
                                     <div class="flex ml-6 items-center">
                                         <span class="mr-3" >Quantity</span>
-                                        <input type="number" min={product?.minOrder} max={product?.available} placeholder="Minimum Quantity" defaultValue={product?.minOrder} {...register("quantity", {
-                                            required: {
-                                                value: true,
-                                                message: 'Please select the quantity'
-                                            },
-                                            min: {
-                                                value: parseInt(product?.minOrder),
-                                                message: `You have have order minimum ${product?.minOrder} ` // JS only: <p>error message</p> TS only support string
-                                            },
-                                            max: {
-                                                value: parseInt(product?.available),
-                                                message: `You can't order than ${product?.available} `
-                                            }
-                                        })} class={errors?.quantity ? 'input input-bordered input-error w-full max-w-xs' : 'input w-full max-w-xs'} />
+                                        <input type="number" min={product?.minOrder} max={product?.available} placeholder="Minimum Quantity" defaultValue={product?.minOrder}
+
+                                            {...register("quantity", {
+                                                required: {
+                                                    value: true,
+                                                    message: 'Please select the quantity'
+                                                },
+                                                min: {
+                                                    value: parseInt(product?.minOrder),
+                                                    message: `You have have order minimum ${product?.minOrder} ` // JS only: <p>error message</p> TS only support string
+                                                },
+                                                max: {
+                                                    value: parseInt(product?.available),
+                                                    message: `You can't order than ${product?.available} `
+                                                }
+                                            })} class={errors?.quantity ? 'input input-bordered input-error w-full max-w-xs' : 'input w-full max-w-xs'} />
 
                                     </div>
 
                                 </div>
+                                <div class="leading-loose">
 
-                                <div class="flex">
-                                    <span class="title-font font-medium text-2xl">${product?.price}/unit</span>
-                                    <button type='submit' class="flex ml-auto bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-secondary disabled:bg-neutral rounded" disabled={errors?.quantity}>Purchase</button>
+                                    <p class="font-medium">Customer information</p>
+                                    <div class="">
+                                        <label class="block text-sm " for="cus_name">Name</label>
+                                        <input class="w-full px-5 py-1 input input-bordered rounded" id="cus_name" name="cus_name" type="text" required="" placeholder="Your Name" aria-label="Name" />
+                                    </div>
+                                    <div class="mt-2">
+                                        <label class="block text-sm" for="cus_email">Email</label>
+                                        <input class="w-full px-5  py-4 input input-bordered rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="Your Email" aria-label="Email" />
+                                    </div>
+                                    <div class="mt-2">
+                                        <label class=" block text-sm " for="cus_email">Address</label>
+                                        <input class="w-full px-2 py-2 input input-bordered  rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="Street" aria-label="Email" />
+                                    </div>
+                                    <div class="mt-2">
+
+                                        <input class="w-full px-2 py-2 input input-bordered  rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="City" aria-label="Email" />
+                                    </div>
+                                    <div class="inline-block mt-2 w-1/2 pr-1">
+
+                                        <input class="w-full px-2 py-2 input input-bordered rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="Country" aria-label="Email" />
+                                    </div>
+                                    <div class="inline-block mt-2 -mx-1 pl-1 w-1/2">
+
+                                        <input class="w-full px-2 py-2 input input-bordered rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="Zip" aria-label="Email" />
+                                    </div>
+
+                                </div>
+                                <div class="mt-[10px]">
+                                    <p>Per Unit Price: <span className='text-primary font-bold text-2xl'>{product?.price}</span></p>
+                                    <p>Total Price: <span className='text-primary font-bold text-2xl'>{isNaN(parseInt(product?.price) * parseInt(watchQuantity)) ? 'Please give a value in quantity' : errors?.quantity ? 'Please check available product or minimum order!' : parseInt(product?.price) * parseInt(watchQuantity)}</span></p>
+                                    <button type='submit' class="flex ml-auto bg-primary  py-2 px-6  hover:bg-secondary disabled:bg-neutral rounded" disabled={parseInt(watchQuantity) < parseInt(product?.minOrder) || parseInt(watchQuantity) > parseInt(product?.available)}>Purchase</button>
                                 </div>
                                 <p className='text-error'>{errors?.quantity?.message}</p>
                             </form>
