@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import DarkModeToggle from "react-dark-mode-toggle";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 const Header = ({ dark, setDark }) => {
     const [nav, setNavbar] = useState(false);
     const changeBackground = () => {
@@ -16,9 +16,10 @@ const Header = ({ dark, setDark }) => {
         // adding the event when scroll change Logo
         window.addEventListener("scroll", changeBackground)
     })
+    const location = useLocation();
 
     return (
-        <header className={`fixed w-full top-0 z-10 ease-linear duration-200 ${(nav && dark) && 'bg-base-100 text-white'} ${(nav && !dark) ? 'bg-base-100 text-black' : 'text-white'}`}>
+        <header className={`fixed w-full top-0 z-10 ${(location.pathname !== '/' && !dark) && 'text-black'} ease-linear duration-200 ${(nav && dark) && 'bg-base-100 text-white'} ${(nav && !dark) ? 'bg-base-100 text-black' : 'text-white'}`}>
             <motion.div initial={{ y: '-100vh' }} animate={{ y: '0' }} transition={{ delay: .5 }} class="navbar container mx-auto h-[100px]">
                 <div class="navbar-start">
                     <div class="dropdown">

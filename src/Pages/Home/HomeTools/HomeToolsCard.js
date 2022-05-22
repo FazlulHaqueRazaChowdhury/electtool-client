@@ -1,9 +1,14 @@
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 const HomeToolsCard = ({ tool }) => {
-    const { img, desc, name, price, minOrder, available, rating } = tool;
+    const { img, desc, name, price, minOrder, available, rating, _id } = tool;
     let leftStar = 5 - rating;
+    const navigate = useNavigate();
+    const handleBuyNow = (id) => {
+        navigate(`/purchase/${id}`)
+    }
     return (
 
         <div className='h-[100%] '><div class="card lg:w-96 mx-auto">
@@ -22,16 +27,18 @@ const HomeToolsCard = ({ tool }) => {
                 </div>
                 <div class="rating">
                     {
-                        [...Array(rating).keys()].map(star => <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked disabled />)
+                        [...Array(rating).keys()].map(star => <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" disabled />)
 
                     }
                     {
-                        [...Array(leftStar).keys()].map(star => <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-200" disabled />)
+                        [...Array(leftStar).keys()].map(star => <input type="radio" name="rating-2" class="mask mask-star-2 bg-gray-500" disabled />)
                     }
                 </div>
                 <p className='text-2xl'>${price}/Piece</p>
                 <div class="card-actions">
-                    <button class="btn btn-ghost text-2xl">Buy Now</button>
+                    <button class="btn btn-ghost text-2xl" onClick={() => {
+                        handleBuyNow(_id)
+                    }}>Buy Now</button>
                 </div>
             </div>
         </div></div>

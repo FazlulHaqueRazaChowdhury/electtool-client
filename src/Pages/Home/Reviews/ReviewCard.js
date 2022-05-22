@@ -14,7 +14,7 @@ const ReviewCard = ({ review }) => {
 
                         }
                         {
-                            [...Array(5 - rating).keys()].map(star => <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-200" disabled />)
+                            [...Array(5 - rating).keys()].map(star => <input type="radio" name="rating-2" class="mask mask-star-2 bg-gray-400" disabled />)
                         }
                     </div>
                     <div class="card-actions justify-center mt-4">
