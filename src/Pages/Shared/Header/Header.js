@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-const Header = () => {
+import DarkModeToggle from "react-dark-mode-toggle";
+const Header = ({ dark, setDark }) => {
     const [nav, setNavbar] = useState(false);
     const changeBackground = () => {
         if (window.scrollY >= 66) {
@@ -16,7 +17,7 @@ const Header = () => {
     })
 
     return (
-        <header className={`fixed w-full top-0 z-10 ease-linear duration-200 ${nav ? 'bg-base-100 text-black' : 'text-white'}`}>
+        <header className={`fixed w-full top-0 z-10 ease-linear duration-200 ${(nav && dark) && 'bg-base-100 text-white'} ${(nav && !dark) ? 'bg-base-100 text-black' : 'text-white'}`}>
             <motion.div initial={{ y: '-100vh' }} animate={{ y: '0' }} transition={{ delay: .5 }} class="navbar container mx-auto h-[100px]">
                 <div class="navbar-start">
                     <div class="dropdown">
@@ -63,11 +64,11 @@ const Header = () => {
                                 <motion.li whileHover={{scale: 1.2, originX:0}}><a>Submenu 2</a></motion.li>
                             </ul>
                         </motion.li> */}
-                        <motion.li whileHover={{ scale: 1.2, originX: 0 }}><a>PRODUCTS</a></motion.li>
-                        <motion.li whileHover={{ scale: 1.2, originX: 0 }}><a>REVIEWS</a></motion.li>
-                        <motion.li whileHover={{ scale: 1.2, originX: 0 }}><a>BLOGS</a></motion.li>
-                        <motion.li whileHover={{ scale: 1.2, originX: 0 }}><a>LOGIN</a></motion.li>
-                        <motion.li whileHover={{ scale: 1.2, originX: 0 }}><a>DASHBOARD</a></motion.li>
+                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><a>PRODUCTS</a></motion.li>
+                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><a>REVIEWS</a></motion.li>
+                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><a>BLOGS</a></motion.li>
+                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><a>LOGIN</a></motion.li>
+                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><a>DASHBOARD</a></motion.li>
                     </ul>
                 </div>
                 <div class="navbar-end">
@@ -77,6 +78,13 @@ const Header = () => {
                         </div>
                     </div>
                     <h1 className='text-2xl ml-5'>Sokina Khanom</h1>
+                    <DarkModeToggle
+                        onChange={setDark}
+                        checked={dark}
+                        size={80}
+                        className='ml-[10px]'
+                    />
+
                 </div>
             </motion.div>
         </header>

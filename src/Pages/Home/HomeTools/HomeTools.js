@@ -46,7 +46,7 @@ const HomeTools = () => {
             minOrder: 100,
             available: 1000,
             price: 100,
-            rating: 3
+            rating: 0
 
         },
         {
@@ -77,6 +77,10 @@ const HomeTools = () => {
                 slidesPerView={4}
                 spaceBetween={30}
                 breakpoints={{
+                    0: {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                    },
                     640: {
                         slidesPerView: 1,
                         spaceBetween: 20,

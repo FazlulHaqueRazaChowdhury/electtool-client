@@ -11,12 +11,12 @@ import ReviewCard from './ReviewCard';
 const Reviews = () => {
 
     const customerReview = [
-        { img: '', name: 'John Doe', rating: 5, desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur voluptatibus illum non qui! Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
-        { img: '', name: 'John Doe', rating: 5, desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur voluptatibus illum non qui! Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
-        { img: '', name: 'John Doe', rating: 5, desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur voluptatibus illum non qui! Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
-        { img: '', name: 'John Doe', rating: 5, desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur voluptatibus illum non qui! Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
-        { img: '', name: 'John Doe', rating: 5, desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur voluptatibus illum non qui! Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
-        { img: '', name: 'John Doe', rating: 5, desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur voluptatibus illum non qui! Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' }
+        { img: '', name: 'John Doe', rating: 5, desc: 'Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
+        { img: '', name: 'John Doe', rating: 5, desc: 'Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
+        { img: '', name: 'John Doe', rating: 5, desc: 'Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
+        { img: '', name: 'John Doe', rating: 5, desc: 'Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
+        { img: '', name: 'John Doe', rating: 5, desc: 'Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
+        { img: '', name: 'John Doe', rating: 5, desc: 'Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' }
     ]
     return (
         <div className='container mx-auto'>
@@ -25,18 +25,31 @@ const Reviews = () => {
             <Swiper
                 slidesPerView={3}
                 spaceBetween={30}
-                pagination={{
-                    clickable: true,
+                breakpoints={{
+                    0: {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                    },
+                    640: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 40,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 50,
+                    },
                 }}
                 modules={[Pagination]}
                 className="mySwiper"
             >
-                <SwiperSlide><ReviewCard /></SwiperSlide>
-                <SwiperSlide><ReviewCard /></SwiperSlide>
-                <SwiperSlide><ReviewCard /></SwiperSlide>
-                <SwiperSlide><ReviewCard /></SwiperSlide>
-                <SwiperSlide><ReviewCard /></SwiperSlide>
-                <SwiperSlide><ReviewCard /></SwiperSlide>
+                {
+                    customerReview.map(review => <SwiperSlide className='mx-auto'><ReviewCard review={review} /></SwiperSlide >)
+                }
+
 
             </Swiper>
         </div>

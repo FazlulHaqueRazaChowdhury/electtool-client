@@ -1,14 +1,28 @@
 import React from 'react';
 
-const ReviewCard = () => {
+const ReviewCard = ({ review }) => {
+    const { name, img, rating, desc } = review;
     return (
         <div>
-            <div class="card w-96 bg-base-100 shadow-xl">
+            <div class="card w-96 bg-base-100 mx-auto">
                 <div class="card-body">
-                    <h2 class="card-title">Card title!</h2>
-                    <p>If a dog chews shoes whose shoes does he choose?</p>
-                    <div class="card-actions justify-end">
-                        <button class="btn btn-primary">Buy Now</button>
+                    <h2 class="card-title">{name}</h2>
+                    <p className='italic'>"{desc}"</p>
+                    <div class="rating justify-center">
+                        {
+                            [...Array(rating).keys()].map(star => <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" checked disabled />)
+
+                        }
+                        {
+                            [...Array(5 - rating).keys()].map(star => <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-200" disabled />)
+                        }
+                    </div>
+                    <div class="card-actions justify-center mt-4">
+                        <div class="avatar">
+                            <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                <img src="https://api.lorem.space/image/face?hash=3174" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

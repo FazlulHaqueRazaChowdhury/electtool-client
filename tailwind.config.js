@@ -8,7 +8,7 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        mytheme: {
+        mythme: {
 
 
           "primary": "#e8cd1e",
@@ -27,6 +27,28 @@ module.exports = {
           "warning": "#D58C15",
 
           "error": "#F37D68",
+        },
+      },
+      {
+        mytheme2: {
+
+          "primary": "#e256d9",
+
+          "secondary": "#2d71e5",
+
+          "accent": "#fc8abc",
+
+          "neutral": "#28203C",
+
+          "base-100": "#223049",
+
+          "info": "#A0B7F3",
+
+          "success": "#4EDAB4",
+
+          "warning": "#B87005",
+
+          "error": "#F64441",
         },
       },
     ],
