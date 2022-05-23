@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { FcGoogle } from 'react-icons/fc'
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import Loading from '../../Shared/Loading/Loading';
+import { async } from '@firebase/util';
 const LogIn = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-
+    const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+    const [sendPasswordResetEmail, sending, resetError] = useSendPasswordResetEmail(
+        auth
+    );
     let location = useLocation();
     const navigate = useNavigate();
 
@@ -17,18 +24,110 @@ const LogIn = () => {
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
+
+
     const onSubmit = data => {
         const email = data.email;
         const password = data.password;
         signInWithEmailAndPassword(email, password);
     };
-    console.log(error);
-    if (user) {
-        navigate(from, { replace: true });
+    const handleReset = async e => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        await sendPasswordResetEmail(email);
+        toast.success('Password Reset Email Sent')
     }
+
+    useEffect(() => {
+        if (user) {
+            const information = {
+                photoURL: user.user.photoURL,
+                name: user.user.displayName,
+                email: user.user.email,
+                street: '',
+                city: '',
+                country: '',
+                zip: '',
+            }
+            axios.put(`http://localhost:5000/users/${user?.user.email}`, information)
+                .then(res => {
+                    navigate(from, { replace: true });
+                });
+
+
+
+        }
+    }, [user])
+    useEffect(() => {
+        if (googleUser) {
+            const information = {
+                photoURL: googleUser.user.photoURL,
+                name: googleUser.user.displayName,
+                email: googleUser.user.email,
+                street: '',
+                city: '',
+                country: '',
+                zip: '',
+            }
+
+
+            axios.put(`http://localhost:5000/users/${googleUser?.user.email}`, information)
+                .then(res => {
+                    navigate(from, { replace: true })
+                });
+
+        }
+    }, [googleUser])
+
+
+    useEffect(() => {
+        if (error) {
+            console.log(error.code);
+            switch (error?.code) {
+                case 'auth/email-already-in-use':
+                    toast.error('Email already in use')
+                    break;
+                case 'auth/invalid-email':
+                    toast.error('Email is not valid')
+                    break;
+                case 'auth/invalid-password':
+                    toast.error('Password is not valid')
+                    break;
+                case 'auth/wrong-password':
+                    toast.error('Email and password did not matched.')
+                    break;
+                case 'auth/user-not-found':
+                    toast.error('This email user does not exists')
+                    break;
+                default:
+                    toast.error('Something Went Wrong.');
+                    break;
+            }
+
+        }
+    }, [error])
+    useEffect(() => {
+        if (googleError) {
+            switch (googleError?.code) {
+                case 'auth/email-already-in-use':
+                    toast.error('Email already in use')
+                    break;
+
+                default:
+                    toast.error('Something went wrong');
+                    break;
+
+            }
+        }
+    }, [googleError])
+
+    if (sending) {
+        return <Loading />
+    }
+
     return (
         <div className='min-h-screen flex justify-center items-center'>
-            <div class="card mx-auto w-96 h-[500px] bg-base-100 shadow-xl">
+            <div class="card mx-auto w-96  bg-base-100 shadow-xl">
                 <div class="card-body">
                     <h2 class="card-title text-3xl mx-auto">Log In</h2>
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -52,8 +151,21 @@ const LogIn = () => {
                         </div>
                     </form>
                     <span >Don't have an account? <Link to='/signUp' className='text-primary underline'>Free Sign Up Here!</Link></span>
+                    <div class="collapse">
+                        <input type="checkbox" class="peer" />
+                        <div class="collapse-title">
+                            <span>Forgot your password? <button className='text-primary underline'>Reset Your password</button></span>
+                        </div>
+                        <div class="collapse-content">
+                            <form onSubmit={handleReset}>
+                                <input type="email" name='email' placeholder="Your Email" class="input input-bordered w-full max-w-xs" required />
+                                <button type='submit' className='btn btn-primary mt-3'>Send Reset Password</button>
+                            </form>
+                        </div>
+                    </div>
+
                     <div class="divider">OR</div>
-                    <button class="btn btn-ghost gap-2">
+                    <button class="btn btn-ghost gap-2" onClick={() => { signInWithGoogle() }}>
                         <FcGoogle className='text-2xl' />
                         Sign In With Google
                     </button>

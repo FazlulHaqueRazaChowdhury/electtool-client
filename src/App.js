@@ -11,6 +11,7 @@ import SignUp from './Pages/Authentication/SignUp/SignUp';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RequireAuth from './Pages/Authentication/RequrieAuth/RequireAuth';
+import Dashboard from './Pages/Dashboard/Dashboard';
 function App() {
   const [dark, setDark] = useState(false);
   return (
@@ -24,11 +25,22 @@ function App() {
             <Purchase />
           </RequireAuth>
         }></Route>
+        <Route path='/dashboard' element={<Dashboard />}></Route>
         <Route path='/logIn' element={<LogIn />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>
       </Routes>
       <Footer />
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

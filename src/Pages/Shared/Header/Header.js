@@ -9,7 +9,7 @@ import { signOut } from 'firebase/auth';
 const Header = ({ dark, setDark }) => {
     const [nav, setNavbar] = useState(false);
     const [user, loading, error] = useAuthState(auth);
-    console.log(user?.email);
+
     const changeBackground = () => {
         if (window.scrollY >= 66) {
             setNavbar(true)
@@ -42,11 +42,11 @@ const Header = ({ dark, setDark }) => {
                                 <>
                                     <div class="avatar">
                                         <div class="w-10 mx-auto rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                                            <img src="https://api.lorem.space/image/face?hash=3174" />
+                                            <img src={user?.photoURL} alt='user profile' />
                                         </div>
 
                                     </div>
-                                    <h1 className='text-2xl text-black'>Sokina Khanom</h1>
+                                    <h1 className='text-2xl text-black'>{user?.displayName}</h1>
                                 </>
                             }
                             {
@@ -55,16 +55,7 @@ const Header = ({ dark, setDark }) => {
                                 */
                             }
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/' className='text-black'>HOME</Link></motion.li>
-                            {/* <li tabindex="0">
-                                <a class="justify-between">
-                                    Parent
-                                    <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
-                                </a>
-                                <ul class="p-2">
-                                    <motion.li whileHover={{scale: 1.2, originX:0}}><a>Submenu 1</a></motion.li>
-                                    <motion.li whileHover={{scale: 1.2, originX:0}}><a>Submenu 2</a></motion.li>
-                                </ul>
-                            </motion.li> */}
+
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/products' className='text-black'>PRODUCTS</Link></motion.li>
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/reviews' className='text-black' >REVIEWS</Link></motion.li>
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/blogs' className='text-black' >BLOGS</Link></motion.li>
