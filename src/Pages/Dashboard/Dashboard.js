@@ -5,18 +5,18 @@ const Dashboard = () => {
     return (
         <div className='overflow-hidden'>
 
-            <div class="drawer drawer-mobile mt-[100px] container mx-auto">
-                <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-                <div class="drawer-content flex flex-col mx-auto w-full">
+            <div className="drawer drawer-mobile mt-[100px] container mx-auto">
+                <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+                <div className="drawer-content flex flex-col mx-auto w-full">
 
 
 
                     <Outlet />
                 </div>
 
-                <div class="drawer-side">
-                    <label for="my-drawer-2" class="drawer-overlay"></label>
-                    <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content z-10">
+                <div className="drawer-side">
+                    <label for="my-drawer-2" className="drawer-overlay"></label>
+                    <ul className="menu p-4 overflow-y-auto w-80  text-base-content z-10">
 
                         <li><Link to='/dashboard'>My Profile</Link></li>
                         <li><Link to='myOrders'>My Orders</Link></li>

@@ -13,7 +13,7 @@ const Arrivals = () => {
             img: 'https://i.ibb.co/g9kB721/Drilling-Machine-Transparent-Background.png',
             name: 'Wood Sharpener',
             price: 689.99,
-            bg: 'bg-neutral'
+            bg: 'bg-error'
         },
         {
             img: 'https://i.ibb.co/g9kB721/Drilling-Machine-Transparent-Background.png',
@@ -24,7 +24,7 @@ const Arrivals = () => {
     ]
     return (
         <div className='container mx-auto'>
-            <div className='flex flex-col lg:flex-row gap-x-10 gap-y-[40px]'>
+            <div className='flex flex-col lg:flex-row '>
                 {
                     newArrival.map(arrival => <ArrivalCard arrival={arrival} />)
                 }

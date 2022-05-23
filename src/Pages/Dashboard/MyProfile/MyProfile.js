@@ -1,18 +1,44 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
+import { useQuery } from 'react-query'
+import Loading from '../../Shared/Loading/Loading';
+import UpdateUser from '../UpdateUser/UpdateUser';
 
 const MyProfile = () => {
+    const [user, loading, error] = useAuthState(auth);
+    const { data, isLoading, refetch } = useQuery(['users', user], () => fetch(`http://localhost:5000/users/${user?.email}`).then(res => res.json()))
+    if (loading || isLoading) {
+        return <Loading />
+    }
     return (
-        <div>
-            <div class="card lg:card-side bg-base-100 shadow-xl">
-                <figure><img src="https://api.lorem.space/image/album?w=400&h=400" alt="Album" /></figure>
-                <div class="card-body">
-                    <h2 class="card-title">New album is released!</h2>
-                    <p>Click the button to listen on Spotiwhy app.</p>
-                    <div class="card-actions justify-end">
-                        <button class="btn btn-primary">Listen</button>
+        <div className="flex">
+            <div className="card w-full bg-base-100 shadow-xl mx-auto">
+                <div className="avatar p-[20px] mt-[30px]">
+                    <div className="w-24 mx-auto  rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                        <img src={data?.photoURL} alt='user profile' />
                     </div>
                 </div>
+                <div className="card-body">
+                    <h1 className='text-2xl text-primary'>User Details:</h1>
+                    <h2>Role: <span className='text-xl font-bold'>{data?.role === 'admin' ? 'Admin' : 'Buyer'}</span></h2>
+                    <h2>Name: <span className='text-xl font-bold'>{data?.name}</span></h2>
+                    <h2>Email: <span className='text-xl font-bold'>{data?.email}</span></h2>
+                    <h2>Phone No: <span className='text-xl font-bold'>{data?.phone ? data?.phone : 'No Phone Number'}</span></h2>
+                    <h1 className='text-2xl text-primary'>Address:</h1>
+                    <h2>Street: <span className='text-xl font-bold'>{data?.street ? data?.street : 'No Street Added'}</span></h2>
+                    <h2>City: <span className='text-xl font-bold'>{data?.city ? data?.city : 'No City Added'}</span></h2>
+                    <h2>Country: <span className='text-xl font-bold'>{data?.country ? data?.country : 'No Country Added'}</span></h2>
+                    <p></p>
+                    <div className="card-actions justify-center ">
+                        <label for="my-modal-3" className="btn btn-primary text-white modal-button">Update User Information</label>
+
+                    </div>
+                </div>
+
             </div>
+            <UpdateUser user={data} refetch={refetch} />
         </div>
     );
 };

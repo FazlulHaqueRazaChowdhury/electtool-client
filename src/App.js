@@ -18,7 +18,7 @@ import MyOrders from './Pages/Dashboard/MyOrders/MyOrders';
 function App() {
   const [dark, setDark] = useState(false);
   return (
-    <div className="App bg-base-100" data-theme={dark ? 'halloween' : 'bumblebee'}>
+    <div className="App bg-base-100" data-theme={dark ? 'night' : 'lemonade'}>
       <Header dark={dark} setDark={setDark} />
 
       <Routes>
@@ -28,7 +28,9 @@ function App() {
             <Purchase />
           </RequireAuth>
         }></Route>
-        <Route path='/dashboard' element={<Dashboard />}>
+        <Route path='/dashboard' element={<RequireAuth>
+          <Dashboard />
+        </RequireAuth>}>
           <Route index element={<MyProfile />}></Route>
           <Route path='addReview' element={<AddReview />}></Route>
           <Route path='myOrders' element={<MyOrders />}></Route>

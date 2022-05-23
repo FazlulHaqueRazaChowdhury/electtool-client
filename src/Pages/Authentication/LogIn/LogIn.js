@@ -44,11 +44,7 @@ const LogIn = () => {
                 photoURL: user.user.photoURL,
                 name: user.user.displayName,
                 email: user.user.email,
-                street: '',
-                city: '',
-                country: '',
-                zip: '',
-                phone: '',
+
             }
             axios.put(`http://localhost:5000/users/${user?.user.email}`, information)
                 .then(res => {
@@ -65,18 +61,14 @@ const LogIn = () => {
                 photoURL: googleUser.user.photoURL,
                 name: googleUser.user.displayName,
                 email: googleUser.user.email,
-                street: '',
-                city: '',
-                country: '',
-                zip: '',
-                phone: '',
+
             }
-
-
             axios.put(`http://localhost:5000/users/${googleUser?.user.email}`, information)
                 .then(res => {
                     navigate(from, { replace: true })
                 });
+
+
 
         }
     }, [googleUser])
@@ -129,45 +121,45 @@ const LogIn = () => {
 
     return (
         <div className='min-h-screen flex justify-center items-center'>
-            <div class="card mx-auto w-96  bg-base-100 shadow-xl">
-                <div class="card-body">
-                    <h2 class="card-title text-3xl mx-auto">Log In</h2>
+            <div className="card mx-auto w-96  bg-base-100 shadow-xl">
+                <div className="card-body">
+                    <h2 className="card-title text-3xl mx-auto">Log In</h2>
                     <form onSubmit={handleSubmit(onSubmit)}>
 
 
                         <label htmlFor="email">Email</label>
-                        <input type="email" name='email' placeholder="Email" class={`input input-bordered ${errors?.email ? 'input-error' : ''} w-full max-w-xs`} {...register("email", {
+                        <input type="email" name='email' placeholder="Email" className={`input input-bordered ${errors?.email ? 'input-error' : ''} w-full max-w-xs`} {...register("email", {
                             required: 'Email is required'
                         })} />
                         <p className='text-error'>{errors?.email?.type === 'required' ? errors?.email?.message : ''}</p>
                         <label htmlFor="password">Password</label>
-                        <input type="password" name='password' placeholder="Password" class={`input input-bordered ${errors?.password ? 'input-error' : ''} w-full max-w-xs`} {...register("password", {
+                        <input type="password" name='password' placeholder="Password" className={`input input-bordered ${errors?.password ? 'input-error' : ''} w-full max-w-xs`} {...register("password", {
                             required: 'Password is required',
 
                         })} />
 
                         <p className='text-error'>{errors?.password?.type === 'required' ? errors?.password?.message : ''}</p>
 
-                        <div class="card-actions justify-center mt-2">
-                            <button class="btn btn-primary">Login</button>
+                        <div className="card-actions justify-center mt-2">
+                            <button className="btn btn-primary">Login</button>
                         </div>
                     </form>
                     <span >Don't have an account? <Link to='/signUp' className='text-primary underline'>Free Sign Up Here!</Link></span>
-                    <div class="collapse">
-                        <input type="checkbox" class="peer" />
-                        <div class="collapse-title">
+                    <div className="collapse p-[0px]">
+                        <input type="checkbox" className="peer padding-0px" />
+                        <div className="collapse-title padding-0px">
                             <span>Forgot your password? <button className='text-primary underline'>Reset Your password</button></span>
                         </div>
-                        <div class="collapse-content">
+                        <div className="collapse-content">
                             <form onSubmit={handleReset}>
-                                <input type="email" name='email' placeholder="Your Email" class="input input-bordered w-full max-w-xs" required />
+                                <input type="email" name='email' placeholder="Your Email" className="input input-bordered w-full max-w-xs " required />
                                 <button type='submit' className='btn btn-primary mt-3'>Send Reset Password</button>
                             </form>
                         </div>
                     </div>
 
-                    <div class="divider">OR</div>
-                    <button class="btn btn-ghost gap-2" onClick={() => { signInWithGoogle() }}>
+                    <div className="divider">OR</div>
+                    <button className="btn btn-ghost gap-2" onClick={() => { signInWithGoogle() }}>
                         <FcGoogle className='text-2xl' />
                         Sign In With Google
                     </button>

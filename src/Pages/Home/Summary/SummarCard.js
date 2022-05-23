@@ -9,10 +9,10 @@ const SummarCard = ({ summary }) => {
     const review = <AiOutlineMessage className='text-6xl text-primary' />;
     return (
         <div>
-            <div class="card lg:w-96 mx-auto bg-base-100 mx-auto">
-                <div class="card-body">
-                    <h2 class="card-title font-semi text-3xl">{name}</h2>
-                    <div className="flex items-center">
+            <div className="card lg:w-96 mx-auto bg-base-100 ">
+                <div className="card-body">
+                    <h2 className="card-title font-semi mx-auto text-3xl">{name}</h2>
+                    <div className="flex justify-center items-center">
                         {
                             id === 1 ? money : id === 2 ? customer : id === 3 ? review : ''
                         }

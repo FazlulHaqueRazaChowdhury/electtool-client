@@ -12,9 +12,9 @@ const Policy = ({ policy }) => {
     return (
         <div>
 
-            <div class="card bg-base-100 ">
-                <div class="card-body">
-                    <div className="flex gap-x-[14px]">
+            <div className="card bg-base-100 m-w-96 mx-auto">
+                <div className="card-body">
+                    <div className="flex gap-x-[14px] ">
                         {
                             id === 1 ? truck : id === 2 ? online : id === 3 ? money : id === 4 ? member : ''
                         }

@@ -30,20 +30,20 @@ const Header = ({ dark, setDark }) => {
     }
     return (
         <header className={`fixed w-full top-0 z-10 ${(location.pathname !== '/' && !dark) && 'text-black'} ease-linear duration-200 ${(nav && dark) && 'bg-base-100 text-white'} ${(nav && !dark) ? 'bg-base-100 text-black' : 'text-white'}`}>
-            <motion.div initial={{ y: '-100vh' }} animate={{ y: '0' }} transition={{ delay: .5 }} class="navbar container mx-auto h-[100px]">
-                <div class="navbar-start">
-                    <div class="dropdown">
-                        <label tabindex="0" class="btn btn-ghost lg:hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+            <motion.div initial={{ y: '-100vh' }} animate={{ y: '0' }} transition={{ delay: .5 }} className="navbar container mx-auto h-[100px]">
+                <div className="navbar-start">
+                    <div className="dropdown">
+                        <label tabindex="0" className="btn btn-ghost lg:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </label>
 
-                        <ul tabindex="0" class={`menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50  ${dark ? 'text-white' : 'text-black'}`}>
+                        <ul tabindex="0" className={`menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50  ${dark ? 'text-white' : 'text-black'}`}>
 
                             {
                                 user?.email &&
                                 <>
-                                    <div class="avatar">
-                                        <div class="w-10 mx-auto rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                    <div className="avatar">
+                                        <div className="w-10 mx-auto rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                                             <img src={user?.photoURL} alt='user profile' />
                                         </div>
 
@@ -62,25 +62,25 @@ const Header = ({ dark, setDark }) => {
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/reviews' className='' >REVIEWS</Link></motion.li>
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/blogs' className='' >BLOGS</Link></motion.li>
                             {
-                                user?.email ? <motion.li whileHover={{ scale: 1.2, originX: 0 }}><button onClick={() => { signOut(auth) }}>Sign Out</button></motion.li> : <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/logIn'>LOGIN</Link></motion.li>
+                                user?.email ? <motion.li whileHover={{ scale: 1.2, originX: 0 }}><button onClick={() => { signOut(auth) }}>SIGN OUT</button></motion.li> : <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/logIn'>LOGIN</Link></motion.li>
                             }
 
 
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/dashboard'>DASHBOARD</Link></motion.li>
                         </ul>
                     </div>
-                    <a class="btn btn-ghost normal-case text-3xl font-bold"><span className='text-primary'>Elect</span>Tool</a>
+                    <a className="btn btn-ghost normal-case text-3xl font-bold"><span className='text-primary'>Elect</span>Tool</a>
                 </div>
-                <div class="navbar-center hidden lg:flex">
-                    <ul class="menu menu-horizontal p-0">
+                <div className="navbar-center hidden lg:flex">
+                    <ul className="menu menu-horizontal p-0">
                         {/* For Desktop Devices */}
                         <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/'>HOME</Link></motion.li>
                         {/* <li tabindex="0">
                             <a>
                                 Parent
-                                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
+                                <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
                             </a>
-                            <ul class="p-2">
+                            <ul className="p-2">
                                 <motion.li whileHover={{scale: 1.2, originX:0}}><a>Submenu 1</a></motion.li>
                                 <motion.li whileHover={{scale: 1.2, originX:0}}><a>Submenu 2</a></motion.li>
                             </ul>
@@ -89,7 +89,7 @@ const Header = ({ dark, setDark }) => {
                         <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/reviews'>REVIEWS</Link></motion.li>
                         <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/blogs'>BLOGS</Link></motion.li>
                         {
-                            user?.email ? <motion.li whileHover={{ scale: 1.2, originX: 0 }}><button onClick={() => { signOut(auth) }}>Sign Out</button></motion.li> :
+                            user?.email ? <motion.li whileHover={{ scale: 1.2, originX: 0 }}><button onClick={() => { signOut(auth) }}>SIGN OUT</button></motion.li> :
                                 <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/logIn'>LOGIN</Link></motion.li>
                         }
                         {
@@ -97,11 +97,11 @@ const Header = ({ dark, setDark }) => {
                         }
                     </ul>
                 </div>
-                <div class="navbar-end gap-x-2">
+                <div className="navbar-end gap-x-2">
                     {
                         user?.displayName && <>
-                            <div class="avatar hidden lg:block">
-                                <div class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                            <div className="avatar hidden lg:block">
+                                <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                                     <img src={user?.photoURL} alt='user profile' />
                                 </div>
 
@@ -115,9 +115,9 @@ const Header = ({ dark, setDark }) => {
 
                     />
                     {
-                        location.pathname === '/dashboard' && <div class="drawer-content flex flex-col items-center justify-center">
+                        location.pathname === '/dashboard' && <div className="drawer-content flex flex-col items-center justify-center">
 
-                            <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden"><RiDashboardFill /></label>
+                            <label for="my-drawer-2" className="btn btn-primary drawer-button lg:hidden"><RiDashboardFill /></label>
 
                         </div>
                     }

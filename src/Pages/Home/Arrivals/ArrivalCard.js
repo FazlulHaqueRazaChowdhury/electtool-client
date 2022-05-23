@@ -6,17 +6,17 @@ const ArrivalCard = ({ arrival }) => {
     return (
         <button>
             <motion.div whileHover={{
-                scale: 1.1
-            }} class={`card lg:card-side ${bg} text-white max-w-[700px] shadow-xl p-[30px]`}>
+                opacity: 0.5
+            }} className={`flex flex-col justify-center items-center lg:flex-row ${bg} text-white max-w-[700px] shadow-xl p-[30px]`}>
 
-                <div class="card-body text-center">
+                <div className="card-body text-center">
                     <span className='whitespace-nowrap'>New Arrivals in 2022</span>
-                    <h2 class="card-title text-3xl font-bold whitespace-nowrap text-center mx-auto">{name}</h2>
+                    <h2 className="card-title text-3xl font-bold whitespace-nowrap text-center mx-auto">{name}</h2>
 
                     <p className='font-bold'>From: ${price}</p>
 
                 </div>
-                <figure><img src={img} alt="Album" /></figure>
+                <figure><img src={img} alt="Album" className='w-[200px]' /></figure>
             </motion.div>
 
 
