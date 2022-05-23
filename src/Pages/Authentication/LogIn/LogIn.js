@@ -48,6 +48,7 @@ const LogIn = () => {
                 city: '',
                 country: '',
                 zip: '',
+                phone: '',
             }
             axios.put(`http://localhost:5000/users/${user?.user.email}`, information)
                 .then(res => {
@@ -68,6 +69,7 @@ const LogIn = () => {
                 city: '',
                 country: '',
                 zip: '',
+                phone: '',
             }
 
 

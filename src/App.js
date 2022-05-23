@@ -12,6 +12,9 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RequireAuth from './Pages/Authentication/RequrieAuth/RequireAuth';
 import Dashboard from './Pages/Dashboard/Dashboard';
+import MyProfile from './Pages/Dashboard/MyProfile/MyProfile';
+import AddReview from './Pages/Dashboard/AddReview/AddReview';
+import MyOrders from './Pages/Dashboard/MyOrders/MyOrders';
 function App() {
   const [dark, setDark] = useState(false);
   return (
@@ -25,7 +28,12 @@ function App() {
             <Purchase />
           </RequireAuth>
         }></Route>
-        <Route path='/dashboard' element={<Dashboard />}></Route>
+        <Route path='/dashboard' element={<Dashboard />}>
+          <Route index element={<MyProfile />}></Route>
+          <Route path='addReview' element={<AddReview />}></Route>
+          <Route path='myOrders' element={<MyOrders />}></Route>
+
+        </Route>
         <Route path='/logIn' element={<LogIn />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>
       </Routes>

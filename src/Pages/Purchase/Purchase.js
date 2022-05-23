@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 import useProducts from '../../hook/useProducts';
 import Loading from '../Shared/Loading/Loading';
@@ -16,6 +17,8 @@ const Purchase = () => {
         mode: 'onSubmit',
         reValidateMode: 'onChange',
     });
+
+
     const [user, loading, error] = useAuthState(auth);
 
     useEffect(() => {
@@ -38,6 +41,7 @@ const Purchase = () => {
             city: data.city,
             country: data.country,
             zip: data.zip,
+            phone: data.phone,
         }
         const orderinformation = {
             name: data.name,
@@ -53,9 +57,24 @@ const Purchase = () => {
             orderQuantity: watchQuantity,
             remainingAvailable: parseInt(product.available) - parseInt(watchQuantity),
             totalPrice: parseInt(watchQuantity) * parseInt(product.price),
-
+            paid: false
         }
-        console.log(orderinformation);
+        axios.put(`http://localhost:5000/users/${user?.email}`, userInformation)
+            .then(res => {
+                if (res.data.matchedCount === 1) {
+                    axios.post(`http://localhost:5000/orders`, orderinformation)
+                        .then(res => {
+                            console.log(res.data)
+                            if (res.data.success) {
+                                toast.success(res.data.message)
+                            }
+                            else {
+                                toast.error(res.data.message)
+                            }
+                        });
+                }
+            });
+
     };
 
 
@@ -122,33 +141,44 @@ const Purchase = () => {
                                     <p class="font-medium">Customer information</p>
                                     <div class="">
                                         <label class="block text-sm " for="cus_name">Name</label>
-                                        <input class="w-full px-5 py-1 input input-bordered rounded" type="text" required="" placeholder="Your Name" aria-label="Name" value={user?.displayName} {...register("name", {
+                                        <input class="w-full px-5 py-1 input input-bordered rounded" type="text" placeholder="Your Name" aria-label="Name" value={user?.displayName} {...register("name", {
                                             required: 'Name is required',
 
                                         })} />
+
                                     </div>
                                     <div class="mt-2">
                                         <label class="block text-sm" for="cus_email">Email</label>
-                                        <input class="w-full px-5  py-4 input input-bordered rounded" type="email" required="" placeholder="Your Email" aria-label="Email" value={user?.email} {...register("email", {
+                                        <input class="w-full px-5  py-4 input input-bordered rounded" type="email" placeholder="Your Email" aria-label="Email" value={user?.email} {...register("email", {
                                             required: 'Email is required',
 
                                         })} />
                                     </div>
                                     <div class="mt-2">
+
+                                        <input class="w-full px-2 py-2 input input-bordered  rounded" type="number" placeholder="Phone" {...register("phone", {
+                                            required: 'Phone Number is required',
+
+                                        })} />
+                                        <p className='text-error'>{errors?.phone?.type === 'required' ? errors?.phone?.message : ''}</p>
+                                    </div>
+                                    <div class="mt-2">
                                         <label class=" block text-sm " for="cus_email">Address</label>
-                                        <input class="w-full px-2 py-2 input input-bordered  rounded" type="text" required="" placeholder="Street" {...register("street", {
+                                        <input class="w-full px-2 py-2 input input-bordered  rounded" type="text" placeholder="Street" {...register("street", {
                                             required: 'Address is required',
 
                                         })} />
+                                        <p className='text-error'>{errors?.street?.type === 'required' ? errors?.street?.message : ''}</p>
                                     </div>
                                     <div class="mt-2">
 
-                                        <input class="w-full px-2 py-2 input input-bordered  rounded" type="text" required="" placeholder="City"
+                                        <input class="w-full px-2 py-2 input input-bordered  rounded" type="text" placeholder="City"
                                             {...register("city", {
                                                 required: 'City is required',
 
                                             })}
                                         />
+                                        <p className='text-error'>{errors?.city?.type === 'required' ? errors?.city?.message : ''}</p>
                                     </div>
                                     <div class="inline-block mt-2 w-1/2 pr-1">
 
@@ -158,6 +188,7 @@ const Purchase = () => {
 
                                             })}
                                         />
+                                        <p className='text-error'>{errors?.country?.type === 'required' ? errors?.country?.message : ''}</p>
                                     </div>
                                     <div class="inline-block mt-2 -mx-1 pl-1 w-1/2">
 
@@ -166,6 +197,7 @@ const Purchase = () => {
                                                 required: 'Zip is required',
 
                                             })} />
+                                        <p className='text-error'>{errors?.zip?.type === 'required' ? errors?.zip?.message : ''}</p>
                                     </div>
 
                                 </div>

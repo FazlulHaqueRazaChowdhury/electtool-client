@@ -6,6 +6,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import Loading from '../Loading/Loading';
 import { signOut } from 'firebase/auth';
+import { RiDashboardFill } from 'react-icons/ri'
 const Header = ({ dark, setDark }) => {
     const [nav, setNavbar] = useState(false);
     const [user, loading, error] = useAuthState(auth);
@@ -36,7 +37,8 @@ const Header = ({ dark, setDark }) => {
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </label>
 
-                        <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                        <ul tabindex="0" class={`menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50  ${dark ? 'text-white' : 'text-black'}`}>
+
                             {
                                 user?.email &&
                                 <>
@@ -46,7 +48,7 @@ const Header = ({ dark, setDark }) => {
                                         </div>
 
                                     </div>
-                                    <h1 className='text-2xl text-black'>{user?.displayName}</h1>
+                                    <h1 className='text-2xl'>{user?.displayName}</h1>
                                 </>
                             }
                             {
@@ -54,17 +56,17 @@ const Header = ({ dark, setDark }) => {
                                 For Mobile Devices
                                 */
                             }
-                            <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/' className='text-black'>HOME</Link></motion.li>
+                            <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/' className=''>HOME</Link></motion.li>
 
-                            <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/products' className='text-black'>PRODUCTS</Link></motion.li>
-                            <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/reviews' className='text-black' >REVIEWS</Link></motion.li>
-                            <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/blogs' className='text-black' >BLOGS</Link></motion.li>
+                            <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/products' className=''>PRODUCTS</Link></motion.li>
+                            <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/reviews' className='' >REVIEWS</Link></motion.li>
+                            <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/blogs' className='' >BLOGS</Link></motion.li>
                             {
-                                user?.email ? <motion.li whileHover={{ scale: 1.2, originX: 0 }}><a >Sign Out</a></motion.li> : <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/logIn'>LOGIN</Link></motion.li>
+                                user?.email ? <motion.li whileHover={{ scale: 1.2, originX: 0 }}><button onClick={() => { signOut(auth) }}>Sign Out</button></motion.li> : <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/logIn'>LOGIN</Link></motion.li>
                             }
 
 
-                            <motion.li whileHover={{ scale: 1.2, originX: 0 }}><a className='text-black' >DASHBOARD</a></motion.li>
+                            <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/dashboard'>DASHBOARD</Link></motion.li>
                         </ul>
                     </div>
                     <a class="btn btn-ghost normal-case text-3xl font-bold"><span className='text-primary'>Elect</span>Tool</a>
@@ -112,10 +114,16 @@ const Header = ({ dark, setDark }) => {
                         size={80}
 
                     />
+                    {
+                        location.pathname === '/dashboard' && <div class="drawer-content flex flex-col items-center justify-center">
 
+                            <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden"><RiDashboardFill /></label>
+
+                        </div>
+                    }
                 </div>
             </motion.div>
-        </header>
+        </header >
     );
 };
 

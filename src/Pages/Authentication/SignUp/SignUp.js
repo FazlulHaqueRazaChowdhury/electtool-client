@@ -34,6 +34,7 @@ const SignUp = () => {
         city: '',
         country: '',
         zip: '',
+        phone: ''
     })
 
     const onSubmit = data => {
@@ -68,6 +69,7 @@ const SignUp = () => {
                             city: '',
                             country: '',
                             zip: '',
+                            phone: ''
                         })
                         createUserWithEmailAndPassword(email, password);
                     }
@@ -82,9 +84,8 @@ const SignUp = () => {
     };
     useEffect(() => {
         if (user) {
-            console.log(user);
             updateProfile({ displayName: infoName, photoURL: img });
-            axios.put(`http://localhost:5000/users/${user?.email}`, information)
+            axios.put(`http://localhost:5000/users/${user?.user?.email}`, information)
                 .then(res => console.log(res.data));
             toast.success('Email verification send');
             navigate(from, { replace: true });
@@ -100,6 +101,7 @@ const SignUp = () => {
                 city: '',
                 country: '',
                 zip: '',
+                phone: ''
             }
 
 
