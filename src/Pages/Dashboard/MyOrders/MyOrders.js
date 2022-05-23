@@ -1,16 +1,47 @@
+import axios from 'axios';
 import React from 'react';
+import { confirmAlert } from 'react-confirm-alert';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
+import { toast } from 'react-toastify';
 import auth from '../../../firebase.init';
 import Loading from '../../Shared/Loading/Loading';
-import DeleteOrder from '../DeleteOrder/DeleteOrder';
+
+
 
 const MyOrders = () => {
     const [user, loading] = useAuthState(auth);
     const { data, isLoading, refetch } = useQuery('products', () => fetch(`http://localhost:5000/orders/${user.email}`).then(res => res.json()))
-    console.log(data)
+
     if (loading) {
         return <Loading />
+    }
+    const handleDelete = (product) => {
+        console.log(product);
+        confirmAlert({
+            title: 'Cancel the order',
+            message: `Do you wanna cancel the order ${product?.productName}`,
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        axios.delete(`http://localhost:5000/orders/${product._id}`)
+                            .then(res => {
+                                if (res.data.deletedCount) {
+                                    toast.success('Order Cancelled')
+                                    return refetch();
+                                };
+                                toast.error('Something went wrong');
+                            });
+
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: ''
+                }
+            ]
+        })
     }
     return (
         <div>
@@ -37,7 +68,9 @@ const MyOrders = () => {
                                     <td>{order?.orderQuantity}</td>
                                     <td className='btn-group'>
                                         <button className='btn btn-success text-white btn-sm' disabled={order?.paid}>Pay</button>
-                                        <label for="my-modal-4" class="btn btn-error text-white btn-sm modal-button">Cancel</label>
+                                        <button className='btn btn-error text-white btn-sm' onClick={() => {
+                                            handleDelete(order)
+                                        }}>Delete</button>
 
                                     </td>
 
@@ -47,7 +80,7 @@ const MyOrders = () => {
 
                     </tbody>
                 </table>
-                <DeleteOrder refetch={refetch} data={data} />
+
             </div>
         </div>
     );

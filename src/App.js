@@ -15,6 +15,7 @@ import Dashboard from './Pages/Dashboard/Dashboard';
 import MyProfile from './Pages/Dashboard/MyProfile/MyProfile';
 import AddReview from './Pages/Dashboard/AddReview/AddReview';
 import MyOrders from './Pages/Dashboard/MyOrders/MyOrders';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 function App() {
   const [dark, setDark] = useState(false);
   return (
