@@ -3,16 +3,17 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from './CheckoutForm/CheckoutForm';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import Loading from '../Shared/Loading/Loading';
 import { signOut } from 'firebase/auth';
 import auth from '../../firebase.init';
+import { toast } from 'react-toastify';
 
 const stripePromise = loadStripe(process.env.REACT_APP_pubbKey);
 
 const Payment = () => {
-
+    const navigate = useNavigate();
 
     const { id } = useParams();
     const { data: order, isLoading, refetch } = useQuery('order', () => fetch(`http://localhost:5000/order/${id}`, {
@@ -25,8 +26,13 @@ const Payment = () => {
             localStorage.removeItem('accessToken');
             return signOut(auth);
         }
+        if (res.status === 500) {
+            toast.error(res.data.message);
+            return navigate('/dashboard/myOrders')
+        }
         return res.json();
     }));
+    console.log(order);
 
     if (isLoading) {
         return <Loading />

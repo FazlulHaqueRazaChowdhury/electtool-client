@@ -6,18 +6,17 @@ import auth from '../../../firebase.init';
 import useAdmin from '../../../hook/useAdmin';
 import Loading from '../../Shared/Loading/Loading';
 
-const RequireAdmin = () => {
+const RequireAdmin = ({ children }) => {
     const [user, loading, error] = useAuthState(auth);
     const [admin, admingloading] = useAdmin(user?.email);
     const navigate = useNavigate();
-    if (!admin) {
-
-        return navigate('/');
-    }
-
     if (loading || admingloading) {
         return <Loading />
     }
+    if (!admin) {
+        return navigate('/');
+    }
+    return children;
 };
 
 export default RequireAdmin;

@@ -25,7 +25,7 @@ import RequireAdmin from './Pages/Authentication/RequrieAuth/RequireAdmin';
 function App() {
   const [dark, setDark] = useState(false);
   return (
-    <div className="App bg-base-100" data-theme={dark ? 'night' : 'lemonade'}>
+    <div className="App bg-base-100" data-theme={dark ? 'night' : 'bumblebee'}>
       <Header dark={dark} setDark={setDark} />
 
       <Routes>
@@ -51,9 +51,22 @@ function App() {
               <MakeAdmin />
             </RequireAdmin>
           }></Route>
-          <Route path='manageProducts' element={<ManageProduct />}></Route>
-          <Route path='manageOrders' element={<ManageOrder />}></Route>
-          <Route path='addProduct' element={<AddProduct />}></Route>
+          <Route path='manageProducts' element={
+            <RequireAdmin>
+              <ManageProduct />
+            </RequireAdmin>
+          }></Route>
+          <Route path='manageOrders' element={
+            <RequireAdmin>
+              <ManageOrder />
+            </RequireAdmin>
+          }></Route>
+          <Route path='addProduct' element={
+
+            <RequireAdmin>
+              <AddProduct />
+            </RequireAdmin>
+          }></Route>
 
         </Route>
         <Route path='/logIn' element={<LogIn />}></Route>
