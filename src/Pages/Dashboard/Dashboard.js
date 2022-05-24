@@ -1,7 +1,23 @@
-import React from 'react';
+import { signOut } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, Outlet } from 'react-router-dom';
+import axiosPrivate from '../../api/axiosPrivate';
+import auth from '../../firebase.init';
 
 const Dashboard = () => {
+    const [user, loading, error] = useAuthState(auth);
+    const [userProfile, setUserProfile] = useState({});
+    useEffect(() => {
+        axiosPrivate.get(`http://localhost:5000/users/${user?.email}`).then(res => {
+            if (res.status === 401 || res.status === 403) {
+                localStorage.removeItem('accessToken');
+                return signOut(auth);
+            }
+            setUserProfile(res.data);
+        });
+
+    }, [user])
     return (
         <div className='overflow-hidden'>
 
@@ -17,10 +33,22 @@ const Dashboard = () => {
                 <div className="drawer-side">
                     <label for="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu p-4 overflow-y-auto w-80  text-base-content z-10">
-
-                        <li><Link to='/dashboard'>My Profile</Link></li>
-                        <li><Link to='myOrders'>My Orders</Link></li>
-                        <li><Link to='addReview'>Add a review</Link></li>
+                        {
+                            userProfile?.role !== 'admin' ?
+                                <>
+                                    <li><Link to='/dashboard'>My Profile</Link></li>
+                                    <li><Link to='myOrders'>My Orders</Link></li>
+                                    <li><Link to='addReview'>Add a review</Link></li>
+                                </>
+                                :
+                                <>
+                                    <li><Link to='/dashboard'>My Profile</Link></li>
+                                    <li><Link to='addProduct'>Add a Product</Link></li>
+                                    <li><Link to='makeAdmin'>Make an Admin</Link></li>
+                                    <li><Link to='manageOrders'>Manage Orders</Link></li>
+                                    <li><Link to='manageProducts'>Manage Products</Link></li>
+                                </>
+                        }
                     </ul>
 
                 </div>

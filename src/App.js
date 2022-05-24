@@ -17,6 +17,11 @@ import AddReview from './Pages/Dashboard/AddReview/AddReview';
 import MyOrders from './Pages/Dashboard/MyOrders/MyOrders';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Payment from './Pages/Payment/Payment';
+import MakeAdmin from './Pages/Dashboard/MakeAdmin/MakeAdmin';
+import ManageProduct from './Pages/Dashboard/ManageProduct/ManageProduct';
+import ManageOrder from './Pages/Dashboard/ManageOrder/ManageOrder';
+import AddProduct from './Pages/Dashboard/AddProduct/AddProduct';
+import RequireAdmin from './Pages/Authentication/RequrieAuth/RequireAdmin';
 function App() {
   const [dark, setDark] = useState(false);
   return (
@@ -41,6 +46,14 @@ function App() {
           <Route index element={<MyProfile />}></Route>
           <Route path='addReview' element={<AddReview />}></Route>
           <Route path='myOrders' element={<MyOrders />}></Route>
+          <Route path='makeAdmin' element={
+            <RequireAdmin>
+              <MakeAdmin />
+            </RequireAdmin>
+          }></Route>
+          <Route path='manageProducts' element={<ManageProduct />}></Route>
+          <Route path='manageOrders' element={<ManageOrder />}></Route>
+          <Route path='addProduct' element={<AddProduct />}></Route>
 
         </Route>
         <Route path='/logIn' element={<LogIn />}></Route>
