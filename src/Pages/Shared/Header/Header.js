@@ -62,14 +62,17 @@ const Header = ({ dark, setDark }) => {
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/reviews' className='' >REVIEWS</Link></motion.li>
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/blogs' className='' >BLOGS</Link></motion.li>
                             {
-                                user?.email ? <motion.li whileHover={{ scale: 1.2, originX: 0 }}><button onClick={() => { signOut(auth) }}>SIGN OUT</button></motion.li> : <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/logIn'>LOGIN</Link></motion.li>
+                                user?.email ? <motion.li whileHover={{ scale: 1.2, originX: 0 }}><button onClick={() => {
+                                    signOut(auth);
+                                    localStorage.removeItem('accessToken');
+                                }}>SIGN OUT</button></motion.li> : <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/logIn'>LOGIN</Link></motion.li>
                             }
 
 
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/dashboard'>DASHBOARD</Link></motion.li>
                         </ul>
                     </div>
-                    <a className="btn btn-ghost normal-case text-3xl font-bold"><span className='text-primary'>Elect</span>Tool</a>
+                    <Link to='/' className="btn btn-ghost normal-case text-3xl font-bold"><span className='text-primary'>Elect</span>Tool</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">

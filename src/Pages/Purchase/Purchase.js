@@ -26,17 +26,25 @@ const Purchase = () => {
     useEffect(() => {
         setLoading(true);
         console.log(`http://localhost:5000/products/${id}`);
-        // axiosPrivate.get(`http://localhost:5000/products/${id}`)
-        //     .then(res => {
-        //         console.log(res);
-        //         if (res.status === 401 || res.status === 403) {
-        //             setLoading(false);
-        //             localStorage.removeItem('accessToken');
-        //             return signOut(auth);
-        //         }
-        //         setProduct(res.data);
-        //     });
-        // setLoading(false);
+        fetch(`http://localhost:5000/products/${id}`, {
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => {
+
+                if (res.status === 401 || res.status === 403) {
+                    localStorage.removeItem('accessToken');
+                    return signOut(auth);
+                }
+                return res.json()
+            })
+
+            .then(data => {
+                setLoading(false);
+                setProduct(data)
+            })
 
     }, [id])
 
@@ -129,6 +137,10 @@ const Purchase = () => {
                                     <div className="flex">
                                         <span className="mr-3 text-sm">Available:</span>
                                         <span className='text-primary'>{parseInt(product?.available) - watchQuantity < 0 ? 'Not avaible' : parseInt(product?.minOrder) > parseInt(watchQuantity) ? `Minimum Order is ${product?.minOrder}` : parseInt(product?.available) - watchQuantity}</span>
+                                    </div>
+                                    <div className="flex">
+                                        <span className="mr-3 text-sm">Minimum Order:</span>
+                                        <span className='text-primary'>{product?.minOrder}</span>
                                     </div>
 
                                     <div className="flex ml-6 items-center">
