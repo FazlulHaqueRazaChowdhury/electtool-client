@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -6,20 +6,18 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 // import required modules
-import { Pagination } from "swiper";
+import { Autoplay, Pagination } from "swiper";
 import ReviewCard from './ReviewCard';
+import axios from 'axios';
 const Reviews = () => {
+    const [customerReview, setCustomerReview] = useState([]);
 
-    const customerReview = [
-        { img: '', name: 'John Doe', rating: 5, desc: 'Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
-        { img: '', name: 'John Doe', rating: 5, desc: 'Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
-        { img: '', name: 'John Doe', rating: 5, desc: 'Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
-        { img: '', name: 'John Doe', rating: 5, desc: 'Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
-        { img: '', name: 'John Doe', rating: 5, desc: 'Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' },
-        { img: '', name: 'John Doe', rating: 5, desc: 'Facere necessitatibus libero iure eum sint, laudantium maiores adipisci hic animi nisi, dolore ut nulla rerum perferendis!' }
-    ]
+    useEffect(() => {
+        axios.get('http://localhost:5000/reviews')
+            .then(res => setCustomerReview(res.data));
+    }, [])
     return (
-        <div className='container mx-auto'>
+        <div className='container mx-auto' id='review'>
             <h1 className='text-4xl font-semi'>Whats Our Customer Says</h1>
 
             <Swiper
@@ -43,8 +41,11 @@ const Reviews = () => {
                         spaceBetween: 50,
                     },
                 }}
-                modules={[Pagination]}
-                className="mySwiper"
+                autoplay={{
+                    delay: 1500
+                }}
+                modules={[Pagination, Autoplay]}
+                className="mySwiper p-[40px]"
             >
                 {
                     customerReview.map(review => <SwiperSlide className='mx-auto'><ReviewCard review={review} /></SwiperSlide >)

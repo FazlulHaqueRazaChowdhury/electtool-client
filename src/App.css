@@ -13,3 +13,6 @@
 [type='radio']:checked {
     background-image: none;
 }
+#review .swiper-wrapper{
+  padding: 50px 0px;
+}

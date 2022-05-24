@@ -16,6 +16,7 @@ import MyProfile from './Pages/Dashboard/MyProfile/MyProfile';
 import AddReview from './Pages/Dashboard/AddReview/AddReview';
 import MyOrders from './Pages/Dashboard/MyOrders/MyOrders';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import Payment from './Pages/Payment/Payment';
 function App() {
   const [dark, setDark] = useState(false);
   return (
@@ -27,6 +28,11 @@ function App() {
         <Route path='/purchase/:id' element={
           <RequireAuth>
             <Purchase />
+          </RequireAuth>
+        }></Route>
+        <Route path='/payment/:id' element={
+          <RequireAuth>
+            <Payment />
           </RequireAuth>
         }></Route>
         <Route path='/dashboard' element={<RequireAuth>

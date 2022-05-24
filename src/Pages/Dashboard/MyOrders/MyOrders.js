@@ -3,6 +3,7 @@ import React from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../../firebase.init';
 import Loading from '../../Shared/Loading/Loading';
@@ -12,12 +13,12 @@ import Loading from '../../Shared/Loading/Loading';
 const MyOrders = () => {
     const [user, loading] = useAuthState(auth);
     const { data, isLoading, refetch } = useQuery('products', () => fetch(`http://localhost:5000/orders/${user.email}`).then(res => res.json()))
+    const navigate = useNavigate();
 
-    if (loading) {
+    if (loading || isLoading) {
         return <Loading />
     }
     const handleDelete = (product) => {
-        console.log(product);
         confirmAlert({
             title: 'Cancel the order',
             message: `Do you wanna cancel the order ${product?.productName}`,
@@ -56,6 +57,7 @@ const MyOrders = () => {
                             <th>Total Price</th>
                             <th>Quantity</th>
                             <th>ACTIons</th>
+                            <th>transcitionId</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,12 +69,17 @@ const MyOrders = () => {
                                     <td>{order?.totalPrice}</td>
                                     <td>{order?.orderQuantity}</td>
                                     <td className='btn-group'>
-                                        <button className='btn btn-success text-white btn-sm' disabled={order?.paid}>Pay</button>
-                                        <button className='btn btn-error text-white btn-sm' onClick={() => {
-                                            handleDelete(order)
-                                        }}>Delete</button>
+                                        <button onClick={() => {
+                                            navigate(`/payment/${order._id}`)
+                                        }} className='btn btn-success text-white btn-sm' disabled={order?.paid} >{order?.paid ? 'Paid' : 'Pay'}</button>
+                                        {
+                                            !order?.paid && <button className='btn btn-error text-white btn-sm' onClick={() => {
+                                                handleDelete(order)
+                                            }}>Delete</button>
+                                        }
 
                                     </td>
+                                    <td>{order?.transcitionId}</td>
 
                                 </tr>)
                         }

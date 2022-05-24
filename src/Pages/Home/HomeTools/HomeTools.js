@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 // import required modules
-import { Pagination } from "swiper";
+import { Autoplay, Pagination } from "swiper";
 import { motion } from 'framer-motion';
 import HomeToolsCard from './HomeToolsCard';
 import useProducts from '../../../hook/useProducts';
@@ -38,13 +38,16 @@ const HomeTools = () => {
                         spaceBetween: 50,
                     },
                 }}
-
-                modules={[Pagination]}
+                autoplay={{
+                    delay: 2500
+                }}
+                modules={[Pagination, Autoplay]}
                 className="mySwiper"
             >
                 {
                     products.map(tool => <SwiperSlide key={tool._id}><HomeToolsCard tool={tool} /></SwiperSlide>)
                 }
+
             </Swiper>
         </div>
     );

@@ -5,8 +5,10 @@ import auth from '../../../firebase.init';
 import Loading from '../../Shared/Loading/Loading';
 import ReactStars from "react-rating-stars-component";
 import { BsStar, BsStarFill } from 'react-icons/bs';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 const AddReview = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
     const [user, loading, error] = useAuthState(auth);
     const [rating, setRating] = useState(1);
     const ratingChanged = (newRating) => {
@@ -14,12 +16,21 @@ const AddReview = () => {
         console.log(rating);
     };
     const onSubmit = data => {
-        console.log({
+        const review = {
+            img: user?.photoURL,
             name: data.name,
             email: data.email,
             desc: data.desc,
             rating: rating
-        })
+        }
+        axios.post('http://localhost:5000/reviews', review)
+            .then(res => {
+                if (res.data.insertedId) {
+                    toast.success('Review Added');
+                    reset()
+                }
+            });
+
     }
     if (loading) {
         return <Loading />
