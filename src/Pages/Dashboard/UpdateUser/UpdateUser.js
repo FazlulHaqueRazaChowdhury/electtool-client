@@ -1,15 +1,17 @@
 import axios from 'axios';
+import { signOut } from 'firebase/auth';
 
 import React from 'react';
 import { useAuthState, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import axiosPrivate from '../../../api/axiosPrivate';
 import auth from '../../../firebase.init';
 
 const UpdateUser = ({ user, refetch }) => {
     const [users, loading, eros] = useAuthState(auth);
     const [updateProfile, updating, error] = useUpdateProfile(auth);
-    console.log(error);
+
     const { register, handleSubmit, watch, formState: { errors } } = useForm({
         mode: 'onSubmit',
         reValidateMode: 'onChange',
@@ -27,8 +29,12 @@ const UpdateUser = ({ user, refetch }) => {
         }
         console.log(userInformation.photoURL);
         await updateProfile({ displayName: data.name, photoURL: userInformation.photoURL });
-        axios.patch(`http://localhost:5000/users/${users?.email}`, userInformation)
+        axiosPrivate.patch(`http://localhost:5000/users/${users?.email}`, userInformation)
             .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    localStorage.removeItem('accessToken');
+                    return signOut(auth);
+                }
                 if (res.data.matchedCount === 1) {
 
                     refetch()

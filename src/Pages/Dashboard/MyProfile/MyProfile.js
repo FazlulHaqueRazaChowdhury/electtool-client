@@ -5,10 +5,24 @@ import auth from '../../../firebase.init';
 import { useQuery } from 'react-query'
 import Loading from '../../Shared/Loading/Loading';
 import UpdateUser from '../UpdateUser/UpdateUser';
+import { signOut } from 'firebase/auth';
+import { Navigate } from 'react-router-dom';
 
 const MyProfile = () => {
     const [user, loading, error] = useAuthState(auth);
-    const { data, isLoading, refetch } = useQuery(['users', user], () => fetch(`http://localhost:5000/users/${user?.email}`).then(res => res.json()))
+    const { data, isLoading, refetch } = useQuery(['users', user], () => fetch(`http://localhost:5000/users/${user?.email}`, {
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    }).then(res => {
+        if (res.status === 401 || res.status === 403) {
+            localStorage.removeItem('accessToken');
+            <Navigate to='/logIn' state={{ from: '/' }} replace />
+            return signOut(auth);
+        }
+        return res.json();
+    }))
     if (loading || isLoading) {
         return <Loading />
     }

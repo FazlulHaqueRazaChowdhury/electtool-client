@@ -1,9 +1,11 @@
 import axios from 'axios';
+import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import axiosPrivate from '../../api/axiosPrivate';
 import auth from '../../firebase.init';
 import useProducts from '../../hook/useProducts';
 import Loading from '../Shared/Loading/Loading';
@@ -23,12 +25,18 @@ const Purchase = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:5000/products/${id}`)
-            .then(res => {
-
-                setProduct(res.data);
-                setLoading(false);
-            });
+        console.log(`http://localhost:5000/products/${id}`);
+        // axiosPrivate.get(`http://localhost:5000/products/${id}`)
+        //     .then(res => {
+        //         console.log(res);
+        //         if (res.status === 401 || res.status === 403) {
+        //             setLoading(false);
+        //             localStorage.removeItem('accessToken');
+        //             return signOut(auth);
+        //         }
+        //         setProduct(res.data);
+        //     });
+        // setLoading(false);
 
     }, [id])
 
@@ -59,12 +67,21 @@ const Purchase = () => {
             totalPrice: parseInt(watchQuantity) * parseInt(product.price),
             paid: false
         }
-        axios.patch(`http://localhost:5000/users/${user?.email}`, userInformation)
+        axiosPrivate.patch(`http://localhost:5000/users/${user?.email}`, userInformation)
             .then(res => {
+                console.log(res);
+                if (res.status === 401 || res.status === 403) {
+                    localStorage.removeItem('accessToken');
+                    return signOut(auth);
+                };
                 if (res.data.matchedCount === 1) {
-                    axios.post(`http://localhost:5000/orders`, orderinformation)
+                    axiosPrivate.post(`http://localhost:5000/orders`, orderinformation)
                         .then(res => {
-
+                            console.log(res);
+                            if (res.status === 401 || res.status === 403) {
+                                localStorage.removeItem('accessToken');
+                                return signOut(auth);
+                            }
                             if (res.data.success) {
                                 toast.success(res.data.message)
                             }
@@ -80,7 +97,7 @@ const Purchase = () => {
 
     const watchQuantity = watch("quantity", parseInt(product?.minOrder));
     const remainStar = 5 - product?.rating;
-    console.log(product);
+
 
     if (loading || productLoading) {
         return <Loading />

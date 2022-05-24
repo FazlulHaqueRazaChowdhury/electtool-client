@@ -4,18 +4,33 @@ import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from './CheckoutForm/CheckoutForm';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import Loading from '../Shared/Loading/Loading';
+import { signOut } from 'firebase/auth';
+import auth from '../../firebase.init';
 
 const stripePromise = loadStripe(process.env.REACT_APP_pubbKey);
 
 const Payment = () => {
 
-    const [order, setOrder] = useState({});
-    const { id } = useParams();
 
-    useEffect(() => {
-        axios.get(`http://localhost:5000/order/${id}`)
-            .then(res => setOrder(res.data));
-    }, [])
+    const { id } = useParams();
+    const { data: order, isLoading, refetch } = useQuery('order', () => fetch(`http://localhost:5000/order/${id}`, {
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    }).then(res => {
+        if (res.status === 401 || res.status === 403) {
+            localStorage.removeItem('accessToken');
+            return signOut(auth);
+        }
+        return res.json();
+    }));
+
+    if (isLoading) {
+        return <Loading />
+    }
     return (
         <div>
             <div class="hero min-h-screen w-full">

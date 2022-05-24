@@ -6,8 +6,11 @@ import Loading from '../../Shared/Loading/Loading';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { useQuery } from 'react-query';
+import { Navigate, useNavigate } from 'react-router-dom';
+import axiosPrivate from '../../../api/axiosPrivate';
+import { signOut } from 'firebase/auth';
 const CheckoutForm = ({ order }) => {
-    console.log(order);
+
     const stripe = useStripe();
     const elements = useElements();
     const [clientSecret, setClientSecret] = useState('');
@@ -15,14 +18,20 @@ const CheckoutForm = ({ order }) => {
     const [loading, setLoading] = useState(false);
     const [dataloading, setdataLoading] = useState(false);
     const [user, userLoading, error] = useAuthState(auth);
+    const navigate = useNavigate();
+
     useEffect(() => {
 
         setdataLoading(true);
 
-        axios.post(`http://localhost:5000/create-payment-intent?price=${order.totalPrice}`)
+        axiosPrivate.post(`http://localhost:5000/create-payment-intent?price=${order.totalPrice}`)
             .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    localStorage.removeItem('accessToken');
+                    return signOut(auth);
+                }
                 setClientSecret(res.data.clientSecret);
-                console.log(res.data);
+
                 setdataLoading(false)
             });
     }, [order])
@@ -46,7 +55,7 @@ const CheckoutForm = ({ order }) => {
         });
         if (error) {
             toast.error(error.message)
-            console.log(error);
+
         }
 
 
@@ -67,7 +76,7 @@ const CheckoutForm = ({ order }) => {
         );
 
         if (paymentError) {
-            console.log(paymentError);
+
             setLoading(false);
             toast.error(paymentError.message)
 
@@ -81,10 +90,15 @@ const CheckoutForm = ({ order }) => {
                     orderId: order._id,
                     transcitionId: paymentIntent.id
                 }
-                axios.patch('http://localhost:5000/order', orderUpdate)
+                axiosPrivate.patch('http://localhost:5000/order', orderUpdate)
                     .then(res => {
-                        setLoading(false);
+                        if (res.status === 401 || res.status === 403) {
+                            localStorage.removeItem('accessToken');
+                            return signOut(auth);
+                        }
 
+                        setLoading(false);
+                        navigate('/dashboard/myOrders')
                     })
 
 
@@ -113,8 +127,8 @@ const CheckoutForm = ({ order }) => {
                     },
                 }}
             />
-            <button type="submit" disabled={!stripe}>
-                Pay
+            <button className='btn btn-primary btn-xs mt-[10px]' type="submit" disabled={!stripe || order?.paid}>
+                {order?.paid ? 'Paid' : 'Pay'}
             </button>
         </form>
     );

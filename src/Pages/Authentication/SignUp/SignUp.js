@@ -6,6 +6,8 @@ import auth from '../../../firebase.init';
 import { toast } from 'react-toastify';
 import { FcGoogle } from 'react-icons/fc'
 import axios from 'axios';
+import axiosPrivate from '../../../api/axiosPrivate';
+import { signOut } from 'firebase/auth';
 
 const SignUp = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -53,7 +55,10 @@ const SignUp = () => {
             method: 'POST',
             body: formData
         })
-            .then(res => res.json())
+            .then(res => {
+
+                return res.json()
+            })
             .then(result => {
 
                 if (result.success) {
@@ -80,8 +85,8 @@ const SignUp = () => {
     useEffect(() => {
         if (user) {
             updateProfile({ displayName: infoName, photoURL: img });
-            axios.put(`http://localhost:5000/users/${user?.user?.email}`, information)
-                .then(res => console.log(res.data));
+            axiosPrivate.put(`http://localhost:5000/users/${user?.user?.email}`, information)
+                .then(res => localStorage.setItem('accessToken', res.data.token));
             toast.success('Email verification send');
             navigate(from, { replace: true });
         }
@@ -95,7 +100,8 @@ const SignUp = () => {
             }
 
 
-            axios.put(`http://localhost:5000/users/${googleUser?.user.email}`, information)
+            axiosPrivate.put(`http://localhost:5000/users/${googleUser?.user.email}`, information)
+                .then(res => localStorage.setItem('accessToken', res.data.token));
             navigate(from, { replace: true });
         }
     }, [googleUser])

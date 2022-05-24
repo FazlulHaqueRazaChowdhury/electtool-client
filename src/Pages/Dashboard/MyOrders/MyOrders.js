@@ -1,10 +1,12 @@
 import axios from 'axios';
+import { signOut } from 'firebase/auth';
 import React from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import axiosPrivate from '../../../api/axiosPrivate';
 import auth from '../../../firebase.init';
 import Loading from '../../Shared/Loading/Loading';
 
@@ -12,7 +14,19 @@ import Loading from '../../Shared/Loading/Loading';
 
 const MyOrders = () => {
     const [user, loading] = useAuthState(auth);
-    const { data, isLoading, refetch } = useQuery('products', () => fetch(`http://localhost:5000/orders/${user.email}`).then(res => res.json()))
+    const { data, isLoading, refetch } = useQuery('products', () => fetch(`http://localhost:5000/orders/${user.email}`, {
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    }).then(res => {
+        if (res.status === 401 || res.status === 403) {
+            localStorage.removeItem('accessToken');
+            return signOut(auth);
+        }
+        return res.json();
+
+    }))
     const navigate = useNavigate();
 
     if (loading || isLoading) {
@@ -26,8 +40,12 @@ const MyOrders = () => {
                 {
                     label: 'Yes',
                     onClick: () => {
-                        axios.delete(`http://localhost:5000/orders/${product._id}`)
+                        axiosPrivate.delete(`http://localhost:5000/orders/${product._id}`)
                             .then(res => {
+                                if (res.status === 401 || res.status === 403) {
+                                    localStorage.removeItem('accessToken');
+                                    return signOut(auth);
+                                }
                                 if (res.data.deletedCount) {
                                     toast.success('Order Cancelled')
                                     return refetch();

@@ -7,13 +7,15 @@ import ReactStars from "react-rating-stars-component";
 import { BsStar, BsStarFill } from 'react-icons/bs';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import axiosPrivate from '../../../api/axiosPrivate';
+import { signOut } from 'firebase/auth';
 const AddReview = () => {
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
     const [user, loading, error] = useAuthState(auth);
     const [rating, setRating] = useState(1);
     const ratingChanged = (newRating) => {
         setRating(newRating);
-        console.log(rating);
+
     };
     const onSubmit = data => {
         const review = {
@@ -23,8 +25,12 @@ const AddReview = () => {
             desc: data.desc,
             rating: rating
         }
-        axios.post('http://localhost:5000/reviews', review)
+        axiosPrivate.post('http://localhost:5000/reviews', review)
             .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    localStorage.removeItem('accessToken');
+                    return signOut(auth);
+                }
                 if (res.data.insertedId) {
                     toast.success('Review Added');
                     reset()

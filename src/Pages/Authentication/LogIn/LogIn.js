@@ -8,6 +8,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Loading from '../../Shared/Loading/Loading';
 import { async } from '@firebase/util';
+import axiosPrivate from '../../../api/axiosPrivate';
+import { signOut } from 'firebase/auth';
 const LogIn = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
@@ -46,8 +48,10 @@ const LogIn = () => {
                 email: user.user.email,
 
             }
-            axios.put(`http://localhost:5000/users/${user?.user.email}`, information)
+            axiosPrivate.put(`http://localhost:5000/users/${user?.user.email}`, information)
                 .then(res => {
+
+                    localStorage.setItem('accessToken', res.data.token);
                     navigate(from, { replace: true });
                 });
 
@@ -63,8 +67,10 @@ const LogIn = () => {
                 email: googleUser.user.email,
 
             }
-            axios.put(`http://localhost:5000/users/${googleUser?.user.email}`, information)
+            axiosPrivate.put(`http://localhost:5000/users/${googleUser?.user.email}`, information)
                 .then(res => {
+
+                    localStorage.setItem('accessToken', res.data.token);
                     navigate(from, { replace: true })
                 });
 
@@ -76,7 +82,7 @@ const LogIn = () => {
 
     useEffect(() => {
         if (error) {
-            console.log(error.code);
+
             switch (error?.code) {
                 case 'auth/email-already-in-use':
                     toast.error('Email already in use')

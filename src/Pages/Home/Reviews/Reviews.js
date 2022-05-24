@@ -9,12 +9,21 @@ import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper";
 import ReviewCard from './ReviewCard';
 import axios from 'axios';
+import axiosPrivate from '../../../api/axiosPrivate';
+import { signOut } from 'firebase/auth';
+import auth from '../../../firebase.init';
 const Reviews = () => {
     const [customerReview, setCustomerReview] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/reviews')
-            .then(res => setCustomerReview(res.data));
+        axiosPrivate.get('http://localhost:5000/reviews')
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    localStorage.removeItem('accessToken');
+                    return signOut(auth);
+                }
+                setCustomerReview(res.data)
+            });
     }, [])
     return (
         <div className='container mx-auto' id='review'>
