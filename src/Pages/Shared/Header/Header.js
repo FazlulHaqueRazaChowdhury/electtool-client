@@ -61,6 +61,7 @@ const Header = ({ dark, setDark }) => {
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/products' className=''>PRODUCTS</Link></motion.li>
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/reviews' className=''>REVIEWS</Link></motion.li>
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/blogs' className='' >BLOGS</Link></motion.li>
+                            <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/portfolio' className='' >PORTFOLIO</Link></motion.li>
                             {
                                 user?.email ? <motion.li whileHover={{ scale: 1.2, originX: 0 }}><button onClick={() => {
                                     signOut(auth);
@@ -83,6 +84,7 @@ const Header = ({ dark, setDark }) => {
                         <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/products'>PRODUCTS</Link></motion.li>
                         <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/reviews'>REVIEWS</Link></motion.li>
                         <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/blogs'>BLOGS</Link></motion.li>
+                        <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/portfolio'>PORTFOLIO</Link></motion.li>
                         {
                             user?.email ? <motion.li whileHover={{ scale: 1.2, originX: 0 }}><button onClick={() => { signOut(auth) }}>SIGN OUT</button></motion.li> :
                                 <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/logIn'>LOGIN</Link></motion.li>

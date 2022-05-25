@@ -21,7 +21,7 @@ const Banner = () => {
         {
             id: 'slide2',
             title: 'Best',
-            para: 'ElectTool tools are one of the best in the market. You can`t find the alternative of ours tools.',
+            para: "ElectTool tools are one of the best in the market. You can't find the alternative of ours tools.",
             btn: 'Read It'
         },
         {

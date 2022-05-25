@@ -26,6 +26,7 @@ import Product from './Pages/Product/Product';
 import ReviewsRout from './Pages/ReviewsRoute/ReviewsRout';
 import ErrorPage from './Pages/ErrorPage/ErrorPage';
 import Blogs from './Pages/Blogs/Blogs';
+import MyPortfolio from './Pages/MyPortfolio/MyPortfolio';
 function App() {
   const [dark, setDark] = useState(false);
   return (
@@ -78,6 +79,7 @@ function App() {
         <Route path='/blogs' element={<Blogs />}></Route>
         <Route path='/logIn' element={<LogIn />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>
+        <Route path='/portfolio' element={<MyPortfolio />}></Route>
         <Route path='*' element={<ErrorPage />}></Route>
       </Routes>
       <Footer />

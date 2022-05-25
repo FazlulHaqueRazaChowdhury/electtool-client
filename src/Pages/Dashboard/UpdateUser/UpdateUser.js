@@ -64,13 +64,14 @@ const UpdateUser = ({ user, refetch }) => {
                         </div>
 
                         <div className="mt-2">
-
-                            <input defaultValue={user?.phone} className="w-full px-2 py-2 input input-bordered  rounded" type="number" placeholder="Phone" {...register("phone")} />
+                            <label className=" block text-sm " htmlFor="phone">Phone No</label>
+                            <input defaultValue={user?.phone} name='phone' className="w-full px-2 py-2 input input-bordered  rounded" type="number" placeholder="Phone" {...register("phone")} />
 
 
 
                         </div>
-                        <input type='text' defaultValue={user?.photoURL && user?.photoURL} className='input input-bordered mt-2 w-full' {...register('photoURL')}></input>
+                        <label className=" block text-sm " htmlFor="img">Img URL</label>
+                        <input type='text' defaultValue={user?.photoURL && user?.photoURL} name='img' className='input input-bordered mt-2 w-full' {...register('photoURL')}></input>
                         <div className="mt-2">
                             <label className=" block text-sm " htmlFor="cus_email">Address</label>
                             <input defaultValue={user?.street} className="w-full px-2 py-2 input input-bordered  rounded" type="text" placeholder="Street" {...register("street")} />
