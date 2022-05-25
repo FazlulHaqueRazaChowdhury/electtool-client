@@ -1,5 +1,4 @@
 import { signOut } from "firebase/auth";
-import axiosPrivate from "../api/axiosPrivate";
 import auth from "../firebase.init";
 
 

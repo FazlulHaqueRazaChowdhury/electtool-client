@@ -1,5 +1,5 @@
 Project Name: **ElectTool**
-[Live Link](https://electtool.netlify.app/ "Live Link")
+[Live Link](https://electool-84d55.web.app/ "Live Link")
 
 ###### A website where manufacturer can wholesell their tools.
 
