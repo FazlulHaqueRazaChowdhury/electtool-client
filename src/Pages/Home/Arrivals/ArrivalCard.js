@@ -17,7 +17,7 @@ const ArrivalCard = ({ arrival, bg }) => {
 
                 <div className="card-body text-center">
                     <span className='whitespace-nowrap'>New Arrivals in 2022</span>
-                    <h2 className="card-title text-3xl font-bold whitespace-nowrap text-center mx-auto">{name}</h2>
+                    <h2 className="card-title text-3xl font-bold whitespace-nowrap text-center mx-auto">{name.slice(0, 23)}</h2>
 
                     <p className='font-bold'>From: ${price}</p>
 

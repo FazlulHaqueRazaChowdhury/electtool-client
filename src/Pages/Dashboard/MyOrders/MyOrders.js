@@ -93,7 +93,7 @@ const MyOrders = () => {
                                         {
                                             !order?.paid && <button className='btn btn-error text-white btn-sm' onClick={() => {
                                                 handleDelete(order)
-                                            }}>Delete</button>
+                                            }}>Cancel</button>
                                         }
 
                                     </td>

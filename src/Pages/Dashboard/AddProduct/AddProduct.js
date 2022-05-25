@@ -45,7 +45,7 @@ const AddProduct = () => {
                         .then(res => {
                             console.log(res);
                             if (res.data.insertedId) {
-                                toast('Product Added');
+                                toast.success('Product Added');
                                 reset();
                             }
                         });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { MdAttachMoney } from 'react-icons/md';
 import { FaUsers } from 'react-icons/fa';
+import CountUp from 'react-countup';
 import { AiOutlineMessage } from 'react-icons/ai';
 const SummarCard = ({ summary }) => {
     const { name, quantity, id } = summary;
@@ -18,7 +19,7 @@ const SummarCard = ({ summary }) => {
                         }
                         <div className="quantity text-5xl font-bold lg:ml-[10px]">
                             {
-                                quantity
+                                <CountUp duration={5} start={0} end={parseInt(quantity)} />
                             }
                             {
                                 id === 1 && 'M'
