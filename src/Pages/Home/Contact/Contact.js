@@ -1,5 +1,22 @@
+import axios from 'axios';
 import React from 'react';
+import { toast } from 'react-toastify';
 
+
+const handleSend = (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const message = event.target.message.value;
+    const info = {
+        email: email,
+        message: message
+    }
+    axios.post('https://arcane-reaches-97312.herokuapp.com/email', info)
+        .then(res => {
+            console.log(res);
+            toast.success(res.data.message)
+        });
+}
 const Contact = () => {
     return (
         <div>
@@ -11,22 +28,25 @@ const Contact = () => {
                     </div>
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <div className="card-body">
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Your Email</span>
-                                </label>
-                                <input type="text" placeholder="Email" className="input input-bordered" />
-                            </div>
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Your Message</span>
-                                </label>
-                                <textarea placeholder="Your Message" className="textarea textarea-bordered" />
+                            <form onSubmit={handleSend}>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Your Email*</span>
+                                    </label>
+                                    <input type="email" name='email' placeholder="Email" className="input input-bordered" required />
+                                </div>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Your Message*</span>
+                                    </label>
+                                    <textarea placeholder="Your Message" name='message' className="textarea textarea-bordered" required />
 
-                            </div>
-                            <div className="form-control mt-6">
-                                <button className="btn btn-primary">Send</button>
-                            </div>
+                                </div>
+                                <div className="form-control mt-6">
+                                    <button className="btn btn-primary">Send</button>
+                                </div>
+
+                            </form>
                         </div>
                     </div>
                 </div>

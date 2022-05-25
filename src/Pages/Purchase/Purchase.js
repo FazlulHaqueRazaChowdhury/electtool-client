@@ -73,7 +73,7 @@ const Purchase = () => {
             totalPrice: parseInt(watchQuantity) * parseInt(product.price),
             paid: false
         }
-        axiosPrivate.patch(`http://localhost:5000/users/${user?.email}`, userInformation)
+        axiosPrivate.patch(`https://arcane-reaches-97312.herokuapp.com/users/${user?.email}`, userInformation)
             .then(res => {
                 console.log(res);
                 if (res.status === 401 || res.status === 403) {
@@ -81,7 +81,7 @@ const Purchase = () => {
                     return signOut(auth);
                 };
                 if (res.data.matchedCount === 1) {
-                    axiosPrivate.post(`http://localhost:5000/orders`, orderinformation)
+                    axiosPrivate.post(`https://arcane-reaches-97312.herokuapp.com/orders`, orderinformation)
                         .then(res => {
                             if (res.status === 401 || res.status === 403) {
                                 localStorage.removeItem('accessToken');

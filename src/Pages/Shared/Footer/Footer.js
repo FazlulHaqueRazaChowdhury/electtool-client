@@ -1,22 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
         <div>
             <footer className="footer grid-rows-2 p-10 bg-base-100 ">
                 <div className='mx-auto'>
-                    <span className="footer-title">Services</span>
-                    <a className="link link-hover">Branding</a>
-                    <a className="link link-hover">Design</a>
-                    <a className="link link-hover">Marketing</a>
-                    <a className="link link-hover">Advertisement</a>
+                    <span className="footer-title">React JS</span>
+                    <a className="link link-hover">Node Js</a>
+                    <a className="link link-hover">Mongo DB</a>
+                    <a className="link link-hover">Express JS</a>
+                    <a className="link link-hover">Tailwind CSS</a>
                 </div>
                 <div className='mx-auto'>
-                    <span className="footer-title">Company</span>
-                    <a className="link link-hover">About us</a>
-                    <a className="link link-hover">Contact</a>
-                    <a className="link link-hover">Jobs</a>
-                    <a className="link link-hover">Press kit</a>
+                    <span className="footer-title">ElecTool</span>
+                    <Link to='/' className="link link-hover">Home</Link>
+                    <Link to='/products' className="link link-hover">Products</Link>
+                    <Link to='/reviews' className="link link-hover">Reviews</Link>
+                    <Link to='/signUp' className="link link-hover">Sign Up</Link>
                 </div>
                 <div className='mx-auto'>
                     <span className="footer-title">Legal</span>
@@ -26,24 +27,21 @@ const Footer = () => {
                 </div>
                 <div className='mx-auto'>
                     <span className="footer-title">Social</span>
-                    <a className="link link-hover">Twitter</a>
-                    <a className="link link-hover">Instagram</a>
-                    <a className="link link-hover">Facebook</a>
-                    <a className="link link-hover">Github</a>
+                    <a className="link link-hover" href='https://www.facebook.com/fhrcAiman'>Facebook</a>
+                    <a href='https://github.com/FazlulHaqueRazaChowdhury' className="link link-hover">Github</a>
                 </div>
                 <div className='mx-auto'>
-                    <span className="footer-title">Explore</span>
-                    <a className="link link-hover">Features</a>
-                    <a className="link link-hover">Enterprise</a>
-                    <a className="link link-hover">Security</a>
-                    <a className="link link-hover">Pricing</a>
+                    <span className="footer-title">Special Thanks To</span>
+                    <a className="link link-hover">FHRC Aiman (Thats me)</a>
+                    <a className="link link-hover">Jhankar Mahbub</a>
+                    <a className="link link-hover">Programming Hero</a>
                 </div>
                 <div className='mx-auto'>
-                    <span className="footer-title">Apps</span>
-                    <a className="link link-hover">Mac</a>
-                    <a className="link link-hover">Windows</a>
-                    <a className="link link-hover">iPhone</a>
-                    <a className="link link-hover">Android</a>
+                    <span className="footer-title">My Other Works</span>
+                    <a href='https://john-dealership.web.app/' className="link link-hover">John Dealership</a>
+                    <a href='https://space-tourism-fhrc.netlify.app/' className="link link-hover">Space Tourism</a>
+                    <a href='https://toddlu.netlify.app/' className="link link-hover">Toddlu</a>
+
                 </div>
             </footer>
         </div>
