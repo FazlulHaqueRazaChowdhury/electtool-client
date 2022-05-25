@@ -1,9 +1,9 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Header from './Pages/Shared/Header/Header';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Pages/Home/Home';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Purchase from './Pages/Purchase/Purchase';
 import Footer from './Pages/Shared/Footer/Footer';
 import LogIn from './Pages/Authentication/LogIn/LogIn';
@@ -22,6 +22,8 @@ import ManageProduct from './Pages/Dashboard/ManageProduct/ManageProduct';
 import ManageOrder from './Pages/Dashboard/ManageOrder/ManageOrder';
 import AddProduct from './Pages/Dashboard/AddProduct/AddProduct';
 import RequireAdmin from './Pages/Authentication/RequrieAuth/RequireAdmin';
+import Product from './Pages/Product/Product';
+import ReviewsRout from './Pages/ReviewsRoute/ReviewsRout';
 function App() {
   const [dark, setDark] = useState(false);
   return (
@@ -30,6 +32,7 @@ function App() {
 
       <Routes>
         <Route path='/' element={<Home />}></Route>
+        <Route path='/products' element={<Product />}></Route>
         <Route path='/purchase/:id' element={
           <RequireAuth>
             <Purchase />
@@ -69,6 +72,7 @@ function App() {
           }></Route>
 
         </Route>
+        <Route path='/reviews' element={<ReviewsRout />}></Route>
         <Route path='/logIn' element={<LogIn />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>
       </Routes>

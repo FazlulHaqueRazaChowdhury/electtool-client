@@ -4,16 +4,16 @@ import { useForm } from "react-hook-form";
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { FcGoogle } from 'react-icons/fc'
-import axios from 'axios';
+
 import { toast } from 'react-toastify';
 import Loading from '../../Shared/Loading/Loading';
-import { async } from '@firebase/util';
+
 import axiosPrivate from '../../../api/axiosPrivate';
-import { signOut } from 'firebase/auth';
+
 const LogIn = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
-    const [sendPasswordResetEmail, sending, resetError] = useSendPasswordResetEmail(
+    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(
         auth
     );
     let location = useLocation();
@@ -125,6 +125,9 @@ const LogIn = () => {
         return <Loading />
     }
 
+    if (googleLoading || loading) {
+        return <Loading />
+    }
     return (
         <div className='min-h-screen flex justify-center items-center'>
             <div className="card mx-auto w-96  bg-base-100 shadow-xl">

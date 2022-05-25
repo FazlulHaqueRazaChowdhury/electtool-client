@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
+
+import { signOut } from 'firebase/auth';
 import { useForm } from 'react-hook-form';
-import { FcGoogle } from 'react-icons/fc';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axiosPrivate from '../../../api/axiosPrivate';
 import auth from '../../../firebase.init';
 
+
 const AddProduct = () => {
-    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
-    let location = useLocation();
-    let from = location.state?.from?.pathname || "/";
+    const navigate = useNavigate();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = data => {
         const img = data.photoURL[0];
@@ -22,7 +22,10 @@ const AddProduct = () => {
             body: formData
         })
             .then(res => {
-                console.log(res);
+                if (res.status === 401 || res.status === 403) {
+                    navigate('/');
+                    return signOut(auth);
+                }
                 return res.json()
             })
             .then(result => {
@@ -38,7 +41,7 @@ const AddProduct = () => {
                         desc: data.desc,
                     }
 
-                    axiosPrivate.post('http://localhost:5000/products', productInformation)
+                    axiosPrivate.post('https://arcane-reaches-97312.herokuapp.com/products', productInformation)
                         .then(res => {
                             console.log(res);
                             if (res.data.insertedId) {

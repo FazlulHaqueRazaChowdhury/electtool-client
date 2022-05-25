@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import { toast } from 'react-toastify';
 import { FcGoogle } from 'react-icons/fc'
-import axios from 'axios';
 import axiosPrivate from '../../../api/axiosPrivate';
-import { signOut } from 'firebase/auth';
+import Loading from '../../Shared/Loading/Loading';
+
 
 const SignUp = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const navigate = useNavigate();
@@ -141,6 +141,9 @@ const SignUp = () => {
             }
         }
     }, [googleError])
+    if (googleLoading || loading || updating) {
+        return <Loading />
+    }
     return (
         <div className='min-h-screen flex justify-center items-center'>
             <div className="card mx-auto w-96 min-h-[500px] bg-base-100 shadow-xl">

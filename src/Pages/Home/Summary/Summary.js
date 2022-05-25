@@ -28,7 +28,7 @@ const Summary = () => {
                 <h1 className='text-4xl font-semi'>Success In a View</h1>
                 <div className="grid grid-cols-1 lg:grid-cols-3  justify-center items-center">
                     {
-                        summaryData.map(summary => <SummarCard summary={summary} />)
+                        summaryData.map(summary => <SummarCard key={summary.id + 'abcd'} summary={summary} />)
                     }
                 </div>
 

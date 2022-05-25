@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import { signOut } from 'firebase/auth';
 
 import React from 'react';
@@ -7,9 +7,10 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import axiosPrivate from '../../../api/axiosPrivate';
 import auth from '../../../firebase.init';
+import Loading from '../../Shared/Loading/Loading';
 
 const UpdateUser = ({ user, refetch }) => {
-    const [users, loading, eros] = useAuthState(auth);
+    const [users, loading] = useAuthState(auth);
     const [updateProfile, updating, error] = useUpdateProfile(auth);
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm({
@@ -44,17 +45,20 @@ const UpdateUser = ({ user, refetch }) => {
             })
 
     }
+    if (loading) {
+        return <Loading />
+    }
 
     return (
         <div>
             <input type="checkbox" id="my-modal-3" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative">
-                    <label for="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-lg font-bold">Update Your User Profile</h3>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div >
-                            <label className="block text-sm " for="cus_name">Name</label>
+                            <label className="block text-sm " htmlFor="cus_name">Name</label>
                             <input className="w-full px-5 py-1 input input-bordered rounded" type="text" placeholder="Your Name" aria-label="Name" defaultValue={user?.name} {...register("name")} />
 
                         </div>
@@ -68,7 +72,7 @@ const UpdateUser = ({ user, refetch }) => {
                         </div>
                         <input type='text' defaultValue={user?.photoURL && user?.photoURL} className='input input-bordered mt-2 w-full' {...register('photoURL')}></input>
                         <div className="mt-2">
-                            <label className=" block text-sm " for="cus_email">Address</label>
+                            <label className=" block text-sm " htmlFor="cus_email">Address</label>
                             <input defaultValue={user?.street} className="w-full px-2 py-2 input input-bordered  rounded" type="text" placeholder="Street" {...register("street")} />
 
                         </div>

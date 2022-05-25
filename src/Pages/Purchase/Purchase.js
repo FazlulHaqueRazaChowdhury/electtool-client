@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axiosPrivate from '../../api/axiosPrivate';
 import auth from '../../firebase.init';
-import useProducts from '../../hook/useProducts';
 import Loading from '../Shared/Loading/Loading';
 
 const Purchase = () => {
@@ -122,11 +121,11 @@ const Purchase = () => {
                             <div className="flex mb-4">
                                 <div className="rating">
                                     {
-                                        [...Array(parseInt(product?.rating) || 0).keys()].map(star => <input type="radio" name="rating-2" className="mask mask-star-2 bg-primary" disabled />)
+                                        [...Array(parseInt(product?.rating) || 0).keys()].map((star, index) => <input key={index + 89} type="radio" name="rating-2" className="mask mask-star-2 bg-primary" disabled />)
 
                                     }
                                     {
-                                        [...Array(remainStar || 0).keys()].map(star => <input type="radio" name="rating-2" className="mask mask-star-2 bg-gray-400" disabled />)
+                                        [...Array(remainStar || 0).keys()].map((star, index) => <input key={index + 45} type="radio" name="rating-2" className="mask mask-star-2 bg-gray-400" disabled />)
                                     }
                                 </div>
 
@@ -169,7 +168,7 @@ const Purchase = () => {
 
                                     <p className="font-medium">Customer information</p>
                                     <div >
-                                        <label className="block text-sm " for="cus_name">Name</label>
+                                        <label className="block text-sm " htmlFor="cus_name">Name</label>
                                         <input className="w-full px-5 py-1 input input-bordered rounded" type="text" placeholder="Your Name" aria-label="Name" value={user?.displayName} {...register("name", {
                                             required: 'Name is required',
 
@@ -177,7 +176,7 @@ const Purchase = () => {
 
                                     </div>
                                     <div className="mt-2">
-                                        <label className="block text-sm" for="cus_email">Email</label>
+                                        <label className="block text-sm" htmlFor="cus_email">Email</label>
                                         <input className="w-full px-5  py-4 input input-bordered rounded" type="email" placeholder="Your Email" aria-label="Email" value={user?.email} {...register("email", {
                                             required: 'Email is required',
 
@@ -192,7 +191,7 @@ const Purchase = () => {
                                         <p className='text-error'>{errors?.phone?.type === 'required' ? errors?.phone?.message : ''}</p>
                                     </div>
                                     <div className="mt-2">
-                                        <label className=" block text-sm " for="cus_email">Address</label>
+                                        <label className=" block text-sm " htmlFor="cus_email">Address</label>
                                         <input className="w-full px-2 py-2 input input-bordered  rounded" type="text" placeholder="Street" {...register("street", {
                                             required: 'Address is required',
 

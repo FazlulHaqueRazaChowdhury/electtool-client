@@ -4,14 +4,12 @@ import { useForm } from 'react-hook-form';
 import auth from '../../../firebase.init';
 import Loading from '../../Shared/Loading/Loading';
 import ReactStars from "react-rating-stars-component";
-import { BsStar, BsStarFill } from 'react-icons/bs';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import axiosPrivate from '../../../api/axiosPrivate';
 import { signOut } from 'firebase/auth';
 const AddReview = () => {
-    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
-    const [user, loading, error] = useAuthState(auth);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const [user, loading] = useAuthState(auth);
     const [rating, setRating] = useState(1);
     const ratingChanged = (newRating) => {
         setRating(newRating);
@@ -66,7 +64,7 @@ const AddReview = () => {
                             })}
                         />
                         <label htmlFor='desc'>Description</label>
-                        <textarea class="textarea textarea-bordered w-full mt-2" name='desc' placeholder="Your Review" {...register("desc", {
+                        <textarea className="textarea textarea-bordered w-full mt-2" name='desc' placeholder="Your Review" {...register("desc", {
                             required: 'Description is required'
                         })}
                         ></textarea>

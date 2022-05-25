@@ -1,5 +1,5 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+
+import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { useQuery } from 'react-query'
@@ -9,7 +9,7 @@ import { signOut } from 'firebase/auth';
 import { Navigate } from 'react-router-dom';
 
 const MyProfile = () => {
-    const [user, loading, error] = useAuthState(auth);
+    const [user, loading] = useAuthState(auth);
     const { data, isLoading, refetch } = useQuery(['users', user], () => fetch(`https://arcane-reaches-97312.herokuapp.com/users/${user?.email}`, {
         method: 'GET',
         headers: {
@@ -46,7 +46,7 @@ const MyProfile = () => {
                     <h2>Country: <span className='text-xl font-bold'>{data?.country ? data?.country : 'No Country Added'}</span></h2>
                     <p></p>
                     <div className="card-actions justify-center ">
-                        <label for="my-modal-3" className="btn btn-primary text-white modal-button">Update User Information</label>
+                        <label htmlFor="my-modal-3" className="btn btn-primary text-white modal-button">Update User Information</label>
 
                     </div>
                 </div>

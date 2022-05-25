@@ -6,13 +6,13 @@ import Loading from '../../Shared/Loading/Loading';
 import { AiFillDelete } from 'react-icons/ai'
 import axiosPrivate from '../../../api/axiosPrivate';
 const ManageProduct = () => {
-    const [user, loading, error] = useAuthState(auth);
-    const { data: products, refetch, productError, isLoading } = useQuery('products', () => fetch('http://localhost:5000/products').then(res => res.json()));
+    const [user, loading] = useAuthState(auth);
+    const { data: products, refetch, isLoading } = useQuery('products', () => fetch('https://arcane-reaches-97312.herokuapp.com/products').then(res => res.json()));
     if (loading || isLoading) {
         return <Loading />
     }
     const handleDelete = id => {
-        axiosPrivate.delete(`http://localhost:5000/products/${id}`)
+        axiosPrivate.delete(`https://arcane-reaches-97312.herokuapp.com/products/${id}`)
             .then(res => {
                 refetch();
                 console.log(res.data);
@@ -22,8 +22,8 @@ const ManageProduct = () => {
     return (
         <div>
             <h1>Hey<span className='text-primary font-bold'> {user?.displayName} ! </span>Manage Your Products!</h1>
-            <div class="overflow-x-auto">
-                <table class="table w-full">
+            <div className="overflow-x-auto">
+                <table className="table w-full">
 
                     <thead>
                         <tr>
@@ -39,7 +39,7 @@ const ManageProduct = () => {
                         {
                             products?.map((product, index) =>
 
-                                <tr>
+                                <tr key={product?._id}>
                                     <th>{index + 1}</th>
                                     <td>{product?.name}</td>
                                     <td>{product?.available}</td>
@@ -52,8 +52,8 @@ const ManageProduct = () => {
 
                     </tbody>
                 </table>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

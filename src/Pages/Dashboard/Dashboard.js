@@ -4,12 +4,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, Outlet } from 'react-router-dom';
 import axiosPrivate from '../../api/axiosPrivate';
 import auth from '../../firebase.init';
+import Loading from '../Shared/Loading/Loading';
 
 const Dashboard = () => {
-    const [user, loading, error] = useAuthState(auth);
+    const [user, loading] = useAuthState(auth);
     const [userProfile, setUserProfile] = useState({});
     useEffect(() => {
-        axiosPrivate.get(`http://localhost:5000/users/${user?.email}`).then(res => {
+        axiosPrivate.get(`https://arcane-reaches-97312.herokuapp.com/users/${user?.email}`).then(res => {
             if (res.status === 401 || res.status === 403) {
                 localStorage.removeItem('accessToken');
                 return signOut(auth);
@@ -18,6 +19,9 @@ const Dashboard = () => {
         });
 
     }, [user])
+    if (loading) {
+        return <Loading />
+    }
     return (
         <div className='overflow-hidden'>
 
@@ -31,8 +35,8 @@ const Dashboard = () => {
                 </div>
 
                 <div className="drawer-side">
-                    <label for="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 overflow-y-auto w-80  text-base-content z-10">
+                    <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+                    <ul className="menu p-4 overflow-y-auto w-80  text-base-content z-10 bg-base-100">
                         {
                             userProfile?.role !== 'admin' ?
                                 <>

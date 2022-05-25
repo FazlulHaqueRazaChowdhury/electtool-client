@@ -5,7 +5,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 // import required modules
 import { Autoplay, Pagination } from "swiper";
-import { motion } from 'framer-motion';
 import HomeToolsCard from './HomeToolsCard';
 import useProducts from '../../../hook/useProducts';
 import Loading from '../../Shared/Loading/Loading';
@@ -34,7 +33,7 @@ const HomeTools = () => {
                         spaceBetween: 40,
                     },
                     1024: {
-                        slidesPerView: 4,
+                        slidesPerView: 3,
                         spaceBetween: 50,
                     },
                 }}

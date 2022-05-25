@@ -11,15 +11,23 @@ const useProducts = (limit) => {
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         setLoading(true);
-        axiosPrivate.get(`https://arcane-reaches-97312.herokuapp.com/products?limit=${limit}`)
+        fetch(`https://arcane-reaches-97312.herokuapp.com/products?limit=${parseInt(limit)}`, {
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
                     localStorage.removeItem('accessToken');
                     return signOut(auth);
                 }
-                setProducts(res.data);
+                return res.json()
+            })
+            .then(data => {
+                setProducts(data);
                 setLoading(false);
-            });
+            })
     }, [limit])
     return [products, loading];
 }

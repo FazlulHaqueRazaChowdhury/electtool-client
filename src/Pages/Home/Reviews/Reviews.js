@@ -8,7 +8,6 @@ import "swiper/css/pagination";
 // import required modules
 import { Autoplay, Pagination } from "swiper";
 import ReviewCard from './ReviewCard';
-import axios from 'axios';
 import axiosPrivate from '../../../api/axiosPrivate';
 import { signOut } from 'firebase/auth';
 import auth from '../../../firebase.init';
@@ -57,7 +56,7 @@ const Reviews = () => {
                 className="mySwiper p-[40px]"
             >
                 {
-                    customerReview.map(review => <SwiperSlide className='mx-auto'><ReviewCard review={review} /></SwiperSlide >)
+                    customerReview.map(review => <SwiperSlide key={review._id} className='mx-auto'><ReviewCard review={review} /></SwiperSlide>)
                 }
 
 

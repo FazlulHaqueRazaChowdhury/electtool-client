@@ -33,11 +33,11 @@ const Header = ({ dark, setDark }) => {
             <motion.div initial={{ y: '-100vh' }} animate={{ y: '0' }} transition={{ delay: .5 }} className="navbar container mx-auto h-[100px]">
                 <div className="navbar-start">
                     <div className="dropdown">
-                        <label tabindex="0" className="btn btn-ghost lg:hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                        <label tabIndex="0" className="btn btn-ghost lg:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </label>
 
-                        <ul tabindex="0" className={`menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50  ${dark ? 'text-white' : 'text-black'}`}>
+                        <ul tabIndex="0" className={`menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50  ${dark ? 'text-white' : 'text-black'}`}>
 
                             {
                                 user?.email &&
@@ -59,7 +59,7 @@ const Header = ({ dark, setDark }) => {
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/' className=''>HOME</Link></motion.li>
 
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/products' className=''>PRODUCTS</Link></motion.li>
-                            <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/reviews' className='' >REVIEWS</Link></motion.li>
+                            <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/reviews' className=''>REVIEWS</Link></motion.li>
                             <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/blogs' className='' >BLOGS</Link></motion.li>
                             {
                                 user?.email ? <motion.li whileHover={{ scale: 1.2, originX: 0 }}><button onClick={() => {
@@ -78,7 +78,7 @@ const Header = ({ dark, setDark }) => {
                     <ul className="menu menu-horizontal p-0">
                         {/* For Desktop Devices */}
                         <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/'>HOME</Link></motion.li>
-                        {/* <li tabindex="0">
+                        {/* <li tabIndex="0">
                             <a>
                                 Parent
                                 <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
@@ -120,7 +120,7 @@ const Header = ({ dark, setDark }) => {
                     {
                         location.pathname.slice(0, 10) === '/dashboard' && <div className="drawer-content flex flex-col items-center justify-center">
 
-                            <label for="my-drawer-2" className="btn btn-primary drawer-button lg:hidden"><RiDashboardFill /></label>
+                            <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden"><RiDashboardFill /></label>
 
                         </div>
                     }

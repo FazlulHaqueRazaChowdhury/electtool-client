@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import { signOut } from 'firebase/auth';
 import React from 'react';
 import { confirmAlert } from 'react-confirm-alert';
@@ -65,8 +65,8 @@ const MyOrders = () => {
     return (
         <div>
             <h1><span className='text-3xl font-bold'>{user.displayName}</span> Orders</h1>
-            <div class="overflow-x-auto">
-                <table class="table w-full">
+            <div className="overflow-x-auto">
+                <table className="table w-full">
 
                     <thead>
                         <tr>
@@ -81,7 +81,7 @@ const MyOrders = () => {
                     <tbody>
                         {
                             data?.map((order, index) =>
-                                <tr>
+                                <tr key={order?._id}>
                                     <th>{index + 1}</th>
                                     <td>{order?.productName}</td>
                                     <td>{order?.totalPrice}</td>
@@ -106,8 +106,8 @@ const MyOrders = () => {
                     </tbody>
                 </table>
 
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

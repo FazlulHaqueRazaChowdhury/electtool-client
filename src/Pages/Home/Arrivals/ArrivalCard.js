@@ -1,10 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-const ArrivalCard = ({ arrival }) => {
-    const { bg, name, price, img } = arrival;
+import { useNavigate } from 'react-router-dom';
+const ArrivalCard = ({ arrival, bg }) => {
+    const { name, price, img } = arrival;
+    const navigate = useNavigate();
 
     return (
-        <button>
+        <button onClick={() => {
+
+            navigate(`/purchase/${arrival?._id}`)
+        }
+        }>
             <motion.div whileHover={{
                 opacity: 0.5
             }} className={`flex flex-col justify-center items-center lg:flex-row ${bg} text-white max-w-[700px] shadow-xl p-[30px]`}>

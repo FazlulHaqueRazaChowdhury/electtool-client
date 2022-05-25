@@ -1,32 +1,19 @@
 import React from 'react';
+import useProducts from '../../../hook/useProducts';
+import Loading from '../../Shared/Loading/Loading';
 import ArrivalCard from './ArrivalCard';
 
 const Arrivals = () => {
-    const newArrival = [
-        {
-            img: 'https://i.ibb.co/g9kB721/Drilling-Machine-Transparent-Background.png',
-            name: 'Drill Machine',
-            price: 689.99,
-            bg: 'bg-accent'
-        },
-        {
-            img: 'https://i.ibb.co/g9kB721/Drilling-Machine-Transparent-Background.png',
-            name: 'Wood Sharpener',
-            price: 689.99,
-            bg: 'bg-error'
-        },
-        {
-            img: 'https://i.ibb.co/g9kB721/Drilling-Machine-Transparent-Background.png',
-            name: 'Wood Sharpener',
-            price: 689.99,
-            bg: 'bg-primary'
-        }
-    ]
+    const bgColor = ['bg-accent', 'bg-error', 'bg-primary']
+    const [products, loading] = useProducts(3);
+    if (loading) {
+        return <Loading />
+    }
     return (
         <div className='container mx-auto'>
             <div className='flex flex-col lg:flex-row '>
                 {
-                    newArrival.map(arrival => <ArrivalCard arrival={arrival} />)
+                    products.map((arrival, index) => <ArrivalCard key={arrival?._id} bg={bgColor[index]} arrival={arrival} />)
                 }
             </div>
         </div>

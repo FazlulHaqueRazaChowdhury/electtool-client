@@ -13,7 +13,7 @@ const CompanyPolicy = () => {
         <div className='container mx-auto'>
             <div className="grid grid-cols-1 lg:grid-cols-4">
                 {
-                    policyData.map(policy => <Policy policy={policy} />)
+                    policyData.map(policy => <Policy key={policy.id} policy={policy} />)
                 }
             </div>
         </div>

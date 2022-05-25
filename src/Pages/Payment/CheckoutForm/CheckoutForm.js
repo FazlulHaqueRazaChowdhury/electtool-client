@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { toast } from 'react-toastify';
-import axios from 'axios';
-import Loading from '../../Shared/Loading/Loading';
+
+
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
-import { useQuery } from 'react-query';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axiosPrivate from '../../../api/axiosPrivate';
 import { signOut } from 'firebase/auth';
 const CheckoutForm = ({ order }) => {
@@ -127,7 +126,7 @@ const CheckoutForm = ({ order }) => {
                     },
                 }}
             />
-            <button className='btn btn-primary btn-xs mt-[10px]' type="submit" disabled={!stripe || order?.paid}>
+            <button className='btn btn-primary btn-xs mt-[10px]' type="submit" disabled={!stripe || order?.paid || !clientSecret}>
                 {order?.paid ? 'Paid' : 'Pay'}
             </button>
         </form>

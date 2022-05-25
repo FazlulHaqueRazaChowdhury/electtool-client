@@ -1,8 +1,8 @@
 import React from 'react';
-import { SwiperSlide } from 'swiper/react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-const HomeToolsCard = ({ tool }) => {
+
+const ProductCard = ({ tool }) => {
     const { img, desc, name, price, minOrder, available, rating, _id } = tool;
     let leftStar = 5 - parseInt(rating);
     const navigate = useNavigate();
@@ -10,8 +10,7 @@ const HomeToolsCard = ({ tool }) => {
         navigate(`/purchase/${id}`)
     }
     return (
-
-        <div className='h-[100%] '>
+        <div>
             <div className="card lg:w-96 mx-auto">
                 <figure className="px-10 pt-10">
                     <motion.img whileHover={{
@@ -28,11 +27,11 @@ const HomeToolsCard = ({ tool }) => {
                     </div>
                     <div className="rating">
                         {
-                            [...Array(parseInt(rating)).keys()].map((star, index) => <input key={index + 100} type="radio" name="rating-2" className="mask mask-star-2 bg-primary" disabled />)
+                            [...Array(parseInt(rating)).keys()].map((star, index) => <input key={index + 98} type="radio" name="rating-2" className="mask mask-star-2 bg-primary" disabled />)
 
                         }
                         {
-                            [...Array(leftStar).keys()].map((star, index) => <input key={index + 11} type="radio" name="rating-2" className="mask mask-star-2 bg-gray-500" disabled />)
+                            [...Array(leftStar).keys()].map((star, index) => <input type="radio" key={index + 69} name="rating-2" className="mask mask-star-2 bg-gray-500" disabled />)
                         }
                     </div>
                     <p className='text-2xl'>${price}/Piece</p>
@@ -44,8 +43,7 @@ const HomeToolsCard = ({ tool }) => {
                 </div>
             </div>
         </div>
-
     );
 };
 
-export default HomeToolsCard;
+export default ProductCard;

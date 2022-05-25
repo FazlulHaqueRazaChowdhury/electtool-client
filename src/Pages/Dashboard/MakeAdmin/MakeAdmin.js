@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import axiosPrivate from '../../../api/axiosPrivate';
 import auth from '../../../firebase.init';
-import { useQuery } from 'react-query';
-import Loading from '../../Shared/Loading/Loading';
 import { signOut } from 'firebase/auth';
+import Loading from '../../Shared/Loading/Loading';
 
 const MakeAdmin = () => {
-    const [user, loading, error] = useAuthState(auth);
+    const [user, loading] = useAuthState(auth);
     const [users, setUsers] = useState([]);
     const [id, setId] = useState('');
     useEffect(() => {
-        axiosPrivate.get(`http://localhost:5000/users`, {
+        axiosPrivate.get(`https://arcane-reaches-97312.herokuapp.com/users`, {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -28,9 +27,9 @@ const MakeAdmin = () => {
 
     const handleAdmin = id => {
         setId(id);
-        axiosPrivate.patch(`http://localhost:5000/makeAdmin/${id}`)
+        axiosPrivate.patch(`https://arcane-reaches-97312.herokuapp.com/makeAdmin/${id}`)
             .then(res => {
-                axiosPrivate.get(`http://localhost:5000/users`, {
+                axiosPrivate.get(`https://arcane-reaches-97312.herokuapp.com/users`, {
                     method: 'GET',
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -46,13 +45,15 @@ const MakeAdmin = () => {
             });
 
     }
-
+    if (loading) {
+        return <Loading />
+    }
     return (
         <div>
             <div>
                 <h1>Hey <span className='font-bold'>{user?.displayName}!</span> Make new admin.</h1>
-                <div class="overflow-x-auto">
-                    <table class="table w-full">
+                <div className="overflow-x-auto">
+                    <table className="table w-full">
 
                         <thead>
                             <tr>
@@ -66,7 +67,7 @@ const MakeAdmin = () => {
                         <tbody>
                             {
                                 users?.map((user, index) =>
-                                    <tr>
+                                    <tr key={user?._id}>
                                         <th>{index + 1}</th>
                                         <td>{user?.name}</td>
                                         <td>{user?.email}</td>
@@ -83,8 +84,8 @@ const MakeAdmin = () => {
                     </table>
 
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

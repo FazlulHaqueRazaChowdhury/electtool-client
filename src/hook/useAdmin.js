@@ -1,7 +1,7 @@
-import { signOut } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
+
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import auth from '../firebase.init';
+
 
 const useAdmin = (email) => {
     const [admin, setAdmin] = useState(false);

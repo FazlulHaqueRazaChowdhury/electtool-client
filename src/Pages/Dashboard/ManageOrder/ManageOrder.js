@@ -1,17 +1,16 @@
-import axios from 'axios';
+
 import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import axiosPrivate from '../../../api/axiosPrivate';
 import auth from '../../../firebase.init';
 import Loading from '../../Shared/Loading/Loading';
 
 const ManageOrder = () => {
-    const [user, loading, error] = useAuthState(auth);
+    const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
-    const { data: orders, refetch, isLoading } = useQuery('orders', () => fetch(`http://localhost:5000/orders`, {
+    const { data: orders, refetch, isLoading } = useQuery('orders', () => fetch(`https://arcane-reaches-97312.herokuapp.com/orders`, {
         method: 'GET',
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -26,7 +25,7 @@ const ManageOrder = () => {
     }))
     const handleShip = _id => {
         const id = { id: _id };
-        fetch(`http://localhost:5000/orderStatus`, {
+        fetch(`https://arcane-reaches-97312.herokuapp.com/orderStatus`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
@@ -47,8 +46,8 @@ const ManageOrder = () => {
         <div>
             <div>
                 <h1>Hey<span className='text-primary font-bold'> {user?.displayName} ! </span>Manage Your Products!</h1>
-                <div class="overflow-x-auto">
-                    <table class="table w-full">
+                <div className="overflow-x-auto">
+                    <table className="table w-full">
 
                         <thead>
                             <tr>
@@ -65,7 +64,7 @@ const ManageOrder = () => {
                             {
                                 orders?.map((order, index) =>
 
-                                    <tr>
+                                    <tr key={order?._id}>
                                         <th>{index + 1}</th>
                                         <td>{order?.name}</td>
                                         <td>{order?.productName}</td>
@@ -82,8 +81,8 @@ const ManageOrder = () => {
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

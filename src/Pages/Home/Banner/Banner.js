@@ -47,7 +47,7 @@ const Banner = () => {
             >
                 {
                     slideId.map(slide =>
-                        <SwiperSlide>
+                        <SwiperSlide key={slide.id}>
                             {({ isActive }) => (
                                 <motion.div id={slide.id} initial={{ opacity: 1, scale: 1 }}
                                     animate={{
