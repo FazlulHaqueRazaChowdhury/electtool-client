@@ -5,6 +5,9 @@ import auth from '../../../firebase.init';
 import Loading from '../../Shared/Loading/Loading';
 import { AiFillDelete } from 'react-icons/ai'
 import axiosPrivate from '../../../api/axiosPrivate';
+import { confirmAlert } from 'react-confirm-alert';
+import { signOut } from 'firebase/auth';
+import { toast } from 'react-toastify';
 const ManageProduct = () => {
     const [user, loading] = useAuthState(auth);
     const { data: products, refetch, isLoading } = useQuery('products', () => fetch('https://arcane-reaches-97312.herokuapp.com/products').then(res => res.json()));
@@ -12,11 +15,35 @@ const ManageProduct = () => {
         return <Loading />
     }
     const handleDelete = id => {
-        axiosPrivate.delete(`https://arcane-reaches-97312.herokuapp.com/products/${id}`)
-            .then(res => {
-                refetch();
-                console.log(res.data);
-            })
+
+        confirmAlert({
+            title: 'Delete the product',
+            message: `Do you wanna delete the product?`,
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        axiosPrivate.delete(`https://arcane-reaches-97312.herokuapp.com/products/${id}`)
+                            .then(res => {
+                                if (res.status === 403 || res.status === 401) {
+                                    localStorage.removeItem('accessToken');
+                                    return signOut(auth);
+                                }
+                                if (res.data.deletedCount === 1) {
+                                    toast.success('Product has been deleted!');
+                                    refetch()
+                                }
+                            })
+
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: ''
+                }
+            ]
+        })
+
     }
 
     return (
