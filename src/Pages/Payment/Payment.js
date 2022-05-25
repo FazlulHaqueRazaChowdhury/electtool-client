@@ -16,7 +16,7 @@ const Payment = () => {
     const navigate = useNavigate();
 
     const { id } = useParams();
-    const { data: order, isLoading, refetch } = useQuery('order', () => fetch(`http://localhost:5000/order/${id}`, {
+    const { data: order, isLoading, refetch } = useQuery('order', () => fetch(`https://arcane-reaches-97312.herokuapp.com/order/${id}`, {
         method: 'GET',
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`

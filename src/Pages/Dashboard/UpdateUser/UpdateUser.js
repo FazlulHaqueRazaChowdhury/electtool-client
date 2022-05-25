@@ -29,7 +29,7 @@ const UpdateUser = ({ user, refetch }) => {
         }
         console.log(userInformation.photoURL);
         await updateProfile({ displayName: data.name, photoURL: userInformation.photoURL });
-        axiosPrivate.patch(`http://localhost:5000/users/${users?.email}`, userInformation)
+        axiosPrivate.patch(`https://arcane-reaches-97312.herokuapp.com/users/${users?.email}`, userInformation)
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
                     localStorage.removeItem('accessToken');

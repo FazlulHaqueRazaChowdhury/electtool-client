@@ -14,7 +14,7 @@ import Loading from '../../Shared/Loading/Loading';
 
 const MyOrders = () => {
     const [user, loading] = useAuthState(auth);
-    const { data, isLoading, refetch } = useQuery('products', () => fetch(`http://localhost:5000/orders/${user.email}`, {
+    const { data, isLoading, refetch } = useQuery('products', () => fetch(`https://arcane-reaches-97312.herokuapp.com/orders/${user.email}`, {
         method: 'GET',
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -40,7 +40,7 @@ const MyOrders = () => {
                 {
                     label: 'Yes',
                     onClick: () => {
-                        axiosPrivate.delete(`http://localhost:5000/orders/${product._id}`)
+                        axiosPrivate.delete(`https://arcane-reaches-97312.herokuapp.com/orders/${product._id}`)
                             .then(res => {
                                 if (res.status === 401 || res.status === 403) {
                                     localStorage.removeItem('accessToken');

@@ -25,8 +25,8 @@ const Purchase = () => {
 
     useEffect(() => {
         setLoading(true);
-        console.log(`http://localhost:5000/products/${id}`);
-        fetch(`http://localhost:5000/products/${id}`, {
+        console.log(`https://arcane-reaches-97312.herokuapp.com/products/${id}`);
+        fetch(`https://arcane-reaches-97312.herokuapp.com/products/${id}`, {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -75,7 +75,7 @@ const Purchase = () => {
             totalPrice: parseInt(watchQuantity) * parseInt(product.price),
             paid: false
         }
-        axiosPrivate.patch(`http://localhost:5000/users/${user?.email}`, userInformation)
+        axiosPrivate.patch(`https://arcane-reaches-97312.herokuapp.com/users/${user?.email}`, userInformation)
             .then(res => {
                 console.log(res);
                 if (res.status === 401 || res.status === 403) {
@@ -83,7 +83,7 @@ const Purchase = () => {
                     return signOut(auth);
                 };
                 if (res.data.matchedCount === 1) {
-                    axiosPrivate.post(`http://localhost:5000/orders`, orderinformation)
+                    axiosPrivate.post(`https://arcane-reaches-97312.herokuapp.com/orders`, orderinformation)
                         .then(res => {
                             console.log(res);
                             if (res.status === 401 || res.status === 403) {
@@ -104,7 +104,7 @@ const Purchase = () => {
 
 
     const watchQuantity = watch("quantity", parseInt(product?.minOrder));
-    const remainStar = 5 - product?.rating;
+    const remainStar = 5 - parseInt(product?.rating);
 
 
     if (loading || productLoading) {
@@ -122,7 +122,7 @@ const Purchase = () => {
                             <div className="flex mb-4">
                                 <div className="rating">
                                     {
-                                        [...Array(product?.rating || 0).keys()].map(star => <input type="radio" name="rating-2" className="mask mask-star-2 bg-primary" disabled />)
+                                        [...Array(parseInt(product?.rating) || 0).keys()].map(star => <input type="radio" name="rating-2" className="mask mask-star-2 bg-primary" disabled />)
 
                                     }
                                     {

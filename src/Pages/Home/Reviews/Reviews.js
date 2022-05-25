@@ -16,7 +16,7 @@ const Reviews = () => {
     const [customerReview, setCustomerReview] = useState([]);
 
     useEffect(() => {
-        axiosPrivate.get('http://localhost:5000/reviews')
+        axiosPrivate.get('https://arcane-reaches-97312.herokuapp.com/reviews')
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
                     localStorage.removeItem('accessToken');

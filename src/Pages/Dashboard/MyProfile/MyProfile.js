@@ -10,7 +10,7 @@ import { Navigate } from 'react-router-dom';
 
 const MyProfile = () => {
     const [user, loading, error] = useAuthState(auth);
-    const { data, isLoading, refetch } = useQuery(['users', user], () => fetch(`http://localhost:5000/users/${user?.email}`, {
+    const { data, isLoading, refetch } = useQuery(['users', user], () => fetch(`https://arcane-reaches-97312.herokuapp.com/users/${user?.email}`, {
         method: 'GET',
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`

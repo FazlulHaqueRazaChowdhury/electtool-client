@@ -9,7 +9,7 @@ const useAdmin = (email) => {
     const navigate = useNavigate();
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/admin/${email}`, {
+            fetch(`https://arcane-reaches-97312.herokuapp.com/admin/${email}`, {
                 method: 'GET',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`

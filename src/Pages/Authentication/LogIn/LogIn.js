@@ -48,7 +48,7 @@ const LogIn = () => {
                 email: user.user.email,
 
             }
-            axiosPrivate.put(`http://localhost:5000/users/${user?.user.email}`, information)
+            axiosPrivate.put(`https://arcane-reaches-97312.herokuapp.com/users/${user?.user.email}`, information)
                 .then(res => {
 
                     localStorage.setItem('accessToken', res.data.token);
@@ -67,7 +67,7 @@ const LogIn = () => {
                 email: googleUser.user.email,
 
             }
-            axiosPrivate.put(`http://localhost:5000/users/${googleUser?.user.email}`, information)
+            axiosPrivate.put(`https://arcane-reaches-97312.herokuapp.com/users/${googleUser?.user.email}`, information)
                 .then(res => {
 
                     localStorage.setItem('accessToken', res.data.token);

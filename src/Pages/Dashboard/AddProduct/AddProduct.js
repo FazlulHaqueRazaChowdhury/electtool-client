@@ -8,7 +8,7 @@ import axiosPrivate from '../../../api/axiosPrivate';
 import auth from '../../../firebase.init';
 
 const AddProduct = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
     let location = useLocation();
     let from = location.state?.from?.pathname || "/";
 
@@ -26,8 +26,26 @@ const AddProduct = () => {
                 return res.json()
             })
             .then(result => {
-                if (result.display_url) {
+                console.log(result);
+                if (result.data.display_url) {
+                    const productInformation = {
+                        name: data.name,
+                        price: data.price,
+                        minOrder: data.minOrder,
+                        available: data.available,
+                        img: result.data.display_url,
+                        rating: data.rating,
+                        desc: data.desc,
+                    }
 
+                    axiosPrivate.post('http://localhost:5000/products', productInformation)
+                        .then(res => {
+                            console.log(res);
+                            if (res.data.insertedId) {
+                                toast('Product Added');
+                                reset();
+                            }
+                        });
                 }
             })
 
@@ -44,7 +62,7 @@ const AddProduct = () => {
             <div className='min-h-screen flex justify-center items-center'>
                 <div className="card mx-auto w-96 min-h-[500px] bg-base-100 shadow-xl">
                     <div className="card-body">
-                        <h2 className="card-title text-3xl mx-auto">Sign Up</h2>
+                        <h2 className="card-title text-3xl mx-auto">Add a new Product</h2>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <label htmlFor="name">Product Name</label>
                             <input type="text" name='name' placeholder="Name" className={`input input-bordered ${errors?.name ? 'input-error' : '  '} w-full max-w-xs`}
@@ -57,7 +75,7 @@ const AddProduct = () => {
                             <label htmlFor="number">Price:</label>
                             <input type="number" name='number' placeholder="Price" className={`input input-bordered ${errors?.price ? 'input-error' : '  '} w-full max-w-xs`}
                                 {...register("price", {
-                                    required: 'Product Quantity is required',
+                                    required: 'Prce is required',
                                 })}
                             />
                             <p className='text-error'>{errors?.minOrder?.type === 'required' ? errors?.minOrder?.message : ''}</p>
@@ -82,15 +100,33 @@ const AddProduct = () => {
                             />
                             <p className='text-error'>{errors?.available?.type === 'required' ? errors?.available?.message : ''}</p>
                             <p className='text-error'>{errors?.available?.type === 'pattern' ? errors?.available?.message : ''}</p>
+                            <label htmlFor="rating">Rating:</label>
+                            <input type="number" min='0' max='5' name='rating' placeholder="Rating" className={`input input-bordered ${errors?.rating ? 'input-error' : '  '} w-full max-w-xs`}
+                                {...register("rating", {
+                                    required: 'Rating is required',
+                                    min: {
+                                        value: 0,
+                                        message: '0 is minimum'
+                                    },
+                                    max: {
+                                        value: 5,
+                                        message: '5 is maximum'
+                                    }
+                                }
+                                )}
+                            />
+                            <p className='text-error'>{errors?.rating?.type === 'required' ? errors?.rating?.message : ''}</p>
+                            <p className='text-error'>{errors?.rating?.type === 'max' ? errors?.rating?.message : ''}</p>
+                            <p className='text-error'>{errors?.rating?.type === 'min' ? errors?.rating?.message : ''}</p>
                             <label htmlFor="desc">Product Description</label>
                             <textarea name='desc' placeholder="Description" className={`textarea textarea-bordered ${errors?.desc ? 'input-error' : '  '} w-full max-w-xs`}
                                 {...register("desc", {
-                                    required: 'desc Password is required'
+                                    required: 'Description Password is required'
                                 })}
                             />
                             <p className='text-error'>{errors?.desc?.type === 'required' ? errors?.desc?.message : ''}</p>
 
-                            <input className={`input input-bordered ${errors?.minOrder ? 'input-error' : '  '} w-full max-w-xs block text-sm  rounded-lg  cursor-pointer  focus:outline-none`} id=" multiple_files" type="file" {...register('photoURL', {
+                            <input className={`input input-bordered h-full ${errors?.minOrder ? 'input-error' : '  '} w-full max-w-xs block text-sm  rounded-lg  cursor-pointer  focus:outline-none`} id=" multiple_files" type="file" {...register('photoURL', {
                                 required: 'Your profile image is required'
                             })} multiple></input>
                             <p className='text-error'>{errors?.photoURL?.type === 'required' ? errors?.photoURL?.message : ''}</p>

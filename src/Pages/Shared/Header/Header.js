@@ -118,7 +118,7 @@ const Header = ({ dark, setDark }) => {
 
                     />
                     {
-                        location.pathname === '/dashboard' && <div className="drawer-content flex flex-col items-center justify-center">
+                        location.pathname.slice(0, 10) === '/dashboard' && <div className="drawer-content flex flex-col items-center justify-center">
 
                             <label for="my-drawer-2" className="btn btn-primary drawer-button lg:hidden"><RiDashboardFill /></label>
 

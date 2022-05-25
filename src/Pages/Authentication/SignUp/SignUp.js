@@ -85,7 +85,7 @@ const SignUp = () => {
     useEffect(() => {
         if (user) {
             updateProfile({ displayName: infoName, photoURL: img });
-            axiosPrivate.put(`http://localhost:5000/users/${user?.user?.email}`, information)
+            axiosPrivate.put(`https://arcane-reaches-97312.herokuapp.com/users/${user?.user?.email}`, information)
                 .then(res => localStorage.setItem('accessToken', res.data.token));
             toast.success('Email verification send');
             navigate(from, { replace: true });
@@ -100,7 +100,7 @@ const SignUp = () => {
             }
 
 
-            axiosPrivate.put(`http://localhost:5000/users/${googleUser?.user.email}`, information)
+            axiosPrivate.put(`https://arcane-reaches-97312.herokuapp.com/users/${googleUser?.user.email}`, information)
                 .then(res => localStorage.setItem('accessToken', res.data.token));
             navigate(from, { replace: true });
         }
@@ -187,7 +187,7 @@ const SignUp = () => {
                         />
                         <p className='text-error'>{errors?.confirmPassword?.type === 'required' ? errors?.confirmPassword?.message : ''}</p>
 
-                        <input className={`input input-bordered ${errors?.email ? 'input-error' : '  '} w-full max-w-xs block text-sm  rounded-lg  cursor-pointer  focus:outline-none`} id=" multiple_files" type="file" {...register('photoURL', {
+                        <input className={`input input-bordered h-full ${errors?.email ? 'input-error' : '  '} w-full max-w-xs block text-sm  rounded-lg  cursor-pointer  focus:outline-none`} id=" multiple_files" type="file" {...register('photoURL', {
                             required: 'Your profile image is required'
                         })} multiple></input>
                         <p className='text-error'>{errors?.photoURL?.type === 'required' ? errors?.photoURL?.message : ''}</p>

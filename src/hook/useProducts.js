@@ -11,7 +11,7 @@ const useProducts = (limit) => {
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         setLoading(true);
-        axiosPrivate.get(`http://localhost:5000/products?limit=${limit}`)
+        axiosPrivate.get(`https://arcane-reaches-97312.herokuapp.com/products?limit=${limit}`)
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
                     localStorage.removeItem('accessToken');

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 const HomeToolsCard = ({ tool }) => {
     const { img, desc, name, price, minOrder, available, rating, _id } = tool;
-    let leftStar = 5 - rating;
+    let leftStar = 5 - parseInt(rating);
     const navigate = useNavigate();
     const handleBuyNow = (id) => {
         navigate(`/purchase/${id}`)
@@ -28,7 +28,7 @@ const HomeToolsCard = ({ tool }) => {
                     </div>
                     <div className="rating">
                         {
-                            [...Array(rating).keys()].map(star => <input type="radio" name="rating-2" className="mask mask-star-2 bg-primary" disabled />)
+                            [...Array(parseInt(rating)).keys()].map(star => <input type="radio" name="rating-2" className="mask mask-star-2 bg-primary" disabled />)
 
                         }
                         {

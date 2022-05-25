@@ -24,7 +24,7 @@ const CheckoutForm = ({ order }) => {
 
         setdataLoading(true);
 
-        axiosPrivate.post(`http://localhost:5000/create-payment-intent?price=${order.totalPrice}`)
+        axiosPrivate.post(`https://arcane-reaches-97312.herokuapp.com/create-payment-intent?price=${order.totalPrice}`)
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
                     localStorage.removeItem('accessToken');
@@ -90,7 +90,7 @@ const CheckoutForm = ({ order }) => {
                     orderId: order._id,
                     transcitionId: paymentIntent.id
                 }
-                axiosPrivate.patch('http://localhost:5000/order', orderUpdate)
+                axiosPrivate.patch('https://arcane-reaches-97312.herokuapp.com/order', orderUpdate)
                     .then(res => {
                         if (res.status === 401 || res.status === 403) {
                             localStorage.removeItem('accessToken');

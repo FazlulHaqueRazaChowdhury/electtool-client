@@ -25,7 +25,7 @@ const AddReview = () => {
             desc: data.desc,
             rating: rating
         }
-        axiosPrivate.post('http://localhost:5000/reviews', review)
+        axiosPrivate.post('https://arcane-reaches-97312.herokuapp.com/reviews', review)
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
                     localStorage.removeItem('accessToken');
