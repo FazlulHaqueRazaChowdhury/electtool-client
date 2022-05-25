@@ -13,7 +13,7 @@ const ArrivalCard = ({ arrival, bg }) => {
         }>
             <motion.div whileHover={{
                 opacity: 0.5
-            }} className={`flex flex-col justify-center items-center lg:flex-row ${bg} text-white max-w-[700px] shadow-xl p-[30px]`}>
+            }} className={`flex flex-col justify-center items-center lg:flex-row ${bg} text-white shadow-xl p-[30px]`}>
 
                 <div className="card-body text-center">
                     <span className='whitespace-nowrap'>New Arrivals in 2022</span>

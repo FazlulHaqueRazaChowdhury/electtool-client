@@ -15,19 +15,19 @@ const Banner = () => {
         {
             id: 'slide1',
             title: 'Quality',
-            para: ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, iure.',
+            para: 'ElectTool makes the best quality electronic tools. You can trust our quality.',
             btn: 'Visit Our Factory',
         },
         {
             id: 'slide2',
             title: 'Best',
-            para: ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, iure.',
+            para: 'ElectTool tools are one of the best in the market. You can`t find the alternative of ours tools.',
             btn: 'Read It'
         },
         {
             id: 'slide3',
             title: 'In Budget',
-            para: ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, iure.',
+            para: ' ElectTool Tools are in budget. You can start your business with our tools.',
             btn: 'Pricing'
         },
     ];
@@ -55,7 +55,7 @@ const Banner = () => {
                                         scale: isActive ? 1 : 1,
                                     }}>
                                     <div className="overlay flex justify-center items-center">
-                                        <div className="text-part container mt-5 ">
+                                        <div className="text-part container mt-5 flex flex-col items-center lg:items-start">
                                             <motion.h1 initial={{ x: '-100vw' }}
                                                 animate={{
                                                     x: isActive ? 0 : '-100vw'
@@ -72,7 +72,7 @@ const Banner = () => {
                                                 transition={{
                                                     delay: .7,
                                                 }}
-                                                className="text-3xl font-semi text-white  lg:w-[50%] mt-5 ">
+                                                className="text-3xl font-semi text-white text-center lg:text-left  lg:w-[50%] mt-5 ">
                                                 {
                                                     slide.para
                                                 }

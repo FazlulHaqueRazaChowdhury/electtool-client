@@ -24,6 +24,8 @@ import AddProduct from './Pages/Dashboard/AddProduct/AddProduct';
 import RequireAdmin from './Pages/Authentication/RequrieAuth/RequireAdmin';
 import Product from './Pages/Product/Product';
 import ReviewsRout from './Pages/ReviewsRoute/ReviewsRout';
+import ErrorPage from './Pages/ErrorPage/ErrorPage';
+import Blogs from './Pages/Blogs/Blogs';
 function App() {
   const [dark, setDark] = useState(false);
   return (
@@ -73,8 +75,10 @@ function App() {
 
         </Route>
         <Route path='/reviews' element={<ReviewsRout />}></Route>
+        <Route path='/blogs' element={<Blogs />}></Route>
         <Route path='/logIn' element={<LogIn />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>
+        <Route path='*' element={<ErrorPage />}></Route>
       </Routes>
       <Footer />
       <ToastContainer

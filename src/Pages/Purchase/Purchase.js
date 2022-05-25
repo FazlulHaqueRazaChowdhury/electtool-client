@@ -24,7 +24,6 @@ const Purchase = () => {
 
     useEffect(() => {
         setLoading(true);
-        console.log(`https://arcane-reaches-97312.herokuapp.com/products/${id}`);
         fetch(`https://arcane-reaches-97312.herokuapp.com/products/${id}`, {
             method: 'GET',
             headers: {
@@ -74,7 +73,7 @@ const Purchase = () => {
             totalPrice: parseInt(watchQuantity) * parseInt(product.price),
             paid: false
         }
-        axiosPrivate.patch(`https://arcane-reaches-97312.herokuapp.com/users/${user?.email}`, userInformation)
+        axiosPrivate.patch(`http://localhost:5000/users/${user?.email}`, userInformation)
             .then(res => {
                 console.log(res);
                 if (res.status === 401 || res.status === 403) {
@@ -82,15 +81,21 @@ const Purchase = () => {
                     return signOut(auth);
                 };
                 if (res.data.matchedCount === 1) {
-                    axiosPrivate.post(`https://arcane-reaches-97312.herokuapp.com/orders`, orderinformation)
+                    axiosPrivate.post(`http://localhost:5000/orders`, orderinformation)
                         .then(res => {
-                            console.log(res);
                             if (res.status === 401 || res.status === 403) {
                                 localStorage.removeItem('accessToken');
                                 return signOut(auth);
                             }
                             if (res.data.success) {
-                                toast.success(res.data.message)
+                                axiosPrivate.patch(`https://arcane-reaches-97312.herokuapp.com/products/${orderinformation.productID}`, { available: orderinformation.remainingAvailable })
+                                    .then(response => {
+                                        if (response.data.matchedCount === 1) {
+
+                                            return toast.success(res.data.message)
+                                        }
+                                        return toast.error('Something went wrong!');
+                                    })
                             }
                             else {
                                 toast.error(res.data.message)

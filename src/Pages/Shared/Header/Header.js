@@ -29,7 +29,7 @@ const Header = ({ dark, setDark }) => {
         return <Loading />
     }
     return (
-        <header className={`fixed w-full top-0 z-10 ${(location.pathname !== '/' && !dark) && 'text-black'} ease-linear duration-200 ${(nav && dark) && 'bg-base-100 text-white'} ${(nav && !dark) ? 'bg-base-100 text-black' : 'text-white'}`}>
+        <header className={`fixed w-full top-0 z-40 ${(location.pathname !== '/' && !dark) && 'text-black'} ease-linear duration-200 ${(nav && dark) && 'bg-base-100 text-white'} ${(nav && !dark) ? 'bg-base-100 text-black' : 'text-white'}`}>
             <motion.div initial={{ y: '-100vh' }} animate={{ y: '0' }} transition={{ delay: .5 }} className="navbar container mx-auto h-[100px]">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -69,7 +69,9 @@ const Header = ({ dark, setDark }) => {
                             }
 
 
-                            <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/dashboard'>DASHBOARD</Link></motion.li>
+                            {
+                                user?.email && <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/dashboard'>DASHBOARD</Link></motion.li>
+                            }
                         </ul>
                     </div>
                     <Link to='/' className="btn btn-ghost normal-case text-3xl font-bold"><span className='text-primary'>Elect</span>Tool</Link>
@@ -78,16 +80,6 @@ const Header = ({ dark, setDark }) => {
                     <ul className="menu menu-horizontal p-0">
                         {/* For Desktop Devices */}
                         <motion.li whileHover={{ scale: 1.2, originX: 0 }}><Link to='/'>HOME</Link></motion.li>
-                        {/* <li tabIndex="0">
-                            <a>
-                                Parent
-                                <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
-                            </a>
-                            <ul className="p-2">
-                                <motion.li whileHover={{scale: 1.2, originX:0}}><a>Submenu 1</a></motion.li>
-                                <motion.li whileHover={{scale: 1.2, originX:0}}><a>Submenu 2</a></motion.li>
-                            </ul>
-                        </motion.li> */}
                         <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/products'>PRODUCTS</Link></motion.li>
                         <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/reviews'>REVIEWS</Link></motion.li>
                         <motion.li whileHover={{ scale: 1.1, originX: 0 }}><Link to='/blogs'>BLOGS</Link></motion.li>
@@ -100,7 +92,7 @@ const Header = ({ dark, setDark }) => {
                         }
                     </ul>
                 </div>
-                <div className="navbar-end gap-x-2">
+                <div className="navbar-end gap-x-2 w-full">
                     {
                         user?.displayName && <>
                             <div className="avatar hidden lg:block">
@@ -115,7 +107,7 @@ const Header = ({ dark, setDark }) => {
                         onChange={setDark}
                         checked={dark}
                         size={80}
-
+                        className='mr-[30px] lg:mr-[0px]'
                     />
                     {
                         location.pathname.slice(0, 10) === '/dashboard' && <div className="drawer-content flex flex-col items-center justify-center">

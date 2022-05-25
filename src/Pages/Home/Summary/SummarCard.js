@@ -19,7 +19,7 @@ const SummarCard = ({ summary }) => {
                         }
                         <div className="quantity text-5xl font-bold lg:ml-[10px]">
                             {
-                                <CountUp duration={5} start={0} end={parseInt(quantity)} />
+                                <CountUp duration={5} delay={2} start={0} end={parseInt(quantity)} />
                             }
                             {
                                 id === 1 && 'M'

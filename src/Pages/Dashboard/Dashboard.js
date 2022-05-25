@@ -28,15 +28,12 @@ const Dashboard = () => {
             <div className="drawer drawer-mobile mt-[100px] container mx-auto">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col mx-auto w-full">
-
-
-
                     <Outlet />
                 </div>
 
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 overflow-y-auto w-80  text-base-content z-10 bg-base-100">
+                    <ul className="menu p-4 overflow-y-auto w-80  text-base-content z-10 bg-base-100 lg:bg-[transparent]">
                         {
                             userProfile?.role !== 'admin' ?
                                 <>

@@ -11,7 +11,7 @@ const Arrivals = () => {
     }
     return (
         <div className='container mx-auto'>
-            <div className='flex flex-col lg:flex-row '>
+            <div className='grid grid-cols-1 lg:grid-cols-3 lg:flex-row w-full'>
                 {
                     products.map((arrival, index) => <ArrivalCard key={arrival?._id} bg={bgColor[index]} arrival={arrival} />)
                 }
