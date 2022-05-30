@@ -22,7 +22,7 @@ const SignUp = () => {
     ] = useCreateUserWithEmailAndPassword(auth, {
         sendEmailVerification: true
     });
-
+    console.log(error);
 
     let location = useLocation();
     let from = location.state?.from?.pathname || "/";
