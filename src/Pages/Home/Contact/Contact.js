@@ -20,8 +20,10 @@ const handleSend = (event) => {
 const Contact = () => {
     return (
         <div>
-            <div className="hero min-h-screen bg-base-200">
-                <div className="hero-content flex-col lg:flex-row-reverse">
+            <div className="hero min-h-[50vh] mb-[100px] relative" style={{
+                backgroundImage: 'url(https://i.ibb.co/N9xkm3C/chad-kirchoff-xe-e69j6-Ds-unsplash.jpg)'
+            }}>
+                <div className="hero-content flex-col lg:flex-row-reverse container mx-auto z-30 text-white">
                     <div className="text-center lg:text-left">
                         <h1 className="text-5xl font-bold">Need Help?</h1>
                         <p className="py-6">Tell Us ! We will reply you in 24 hours. Or read the FAQ to solve your problem or call to customer care no given on the footer.</p>
@@ -49,6 +51,10 @@ const Contact = () => {
                             </form>
                         </div>
                     </div>
+                </div>
+                <div className='bg-gradient-to-r from-primary to-secondary min-h-[100%] w-full contact absolute' style={{
+                    opacity: .8
+                }}>
                 </div>
             </div>
         </div>

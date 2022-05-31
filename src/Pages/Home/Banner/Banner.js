@@ -86,7 +86,7 @@ const Banner = () => {
                                                     delay: .8,
                                                 }}
 
-                                                className="btn btn-primary mt-5 w-[200px] h-[10px] font-semi">
+                                                className="btn bg-gradient-to-r from-primary to-secondary text-white mt-5 w-[200px] h-[10px] font-semi">
                                                 {
                                                     slide.btn
                                                 }

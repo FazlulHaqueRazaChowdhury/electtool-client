@@ -1,6 +1,6 @@
 #slide1{
     background-image: url("https://i.ibb.co/7GW7xCc/greyson-joralemon-CXlls8jm1-VI-unsplash.jpg");
-
+    
 
 }
 #slide2{
@@ -19,6 +19,7 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+
 }
 .overlay{
     min-height:100vh ;
@@ -28,4 +29,7 @@
 .swiper-pagination-bullet{
         padding: 10px;
         background-color:#9e9d9c ;
+}
+.contact{
+    backdrop-filter: opacity(20%) !important;
 }
