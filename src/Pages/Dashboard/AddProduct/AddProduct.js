@@ -14,7 +14,7 @@ const AddProduct = () => {
 
     const onSubmit = data => {
         const img = data.photoURL[0];
-        console.log(img);
+
         const formData = new FormData();
         formData.append('image', img);
         fetch(`https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imgbb}`, {
@@ -29,7 +29,7 @@ const AddProduct = () => {
                 return res.json()
             })
             .then(result => {
-                console.log(result);
+
                 if (result.data.display_url) {
                     const productInformation = {
                         name: data.name,
@@ -43,7 +43,7 @@ const AddProduct = () => {
 
                     axiosPrivate.post('https://arcane-reaches-97312.herokuapp.com/products', productInformation)
                         .then(res => {
-                            console.log(res);
+
                             if (res.data.insertedId) {
                                 toast.success('Product Added');
                                 reset();

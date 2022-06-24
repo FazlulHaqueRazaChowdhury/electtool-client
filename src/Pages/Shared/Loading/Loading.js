@@ -1,12 +1,17 @@
 import React from 'react';
-
+import './Loading.css';
 const Loading = () => {
     return (
-        <div className='min-h-screen flex justify-center'>
-            <div className="flex items-center justify-center ">
-                <button className="btn loading">loading</button>
-            </div>
-        </div >
+        <div className="flex justify-center items-center">
+            <div class="loadingio-spinner-double-ring-k39yzfouwos">
+                <div class="ldio-yj272sfd67">
+                    <div></div>
+                    <div></div>
+                    <div><div></div></div>
+                    <div><div></div></div>
+                </div></div>
+
+        </div>
     );
 };
 

@@ -22,7 +22,6 @@ const SignUp = () => {
     ] = useCreateUserWithEmailAndPassword(auth, {
         sendEmailVerification: true
     });
-    console.log(error);
 
     let location = useLocation();
     let from = location.state?.from?.pathname || "/";
@@ -190,7 +189,7 @@ const SignUp = () => {
                         />
                         <p className='text-error'>{errors?.confirmPassword?.type === 'required' ? errors?.confirmPassword?.message : ''}</p>
 
-                        <input className={`input input-bordered h-full ${errors?.email ? 'input-error' : '  '} w-full max-w-xs block text-sm  rounded-lg  cursor-pointer  focus:outline-none`} id=" multiple_files" type="file" {...register('photoURL', {
+                        <input className={`input input-bordered h-full my-3 ${errors?.email ? 'input-error' : '  '} w-full max-w-xs block text-sm  rounded-lg  cursor-pointer  focus:outline-none`} id=" multiple_files" type="file" {...register('photoURL', {
                             required: 'Your profile image is required'
                         })} multiple></input>
                         <p className='text-error'>{errors?.photoURL?.type === 'required' ? errors?.photoURL?.message : ''}</p>

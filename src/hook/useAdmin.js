@@ -23,7 +23,7 @@ const useAdmin = (email) => {
                     return res.json();
                 })
                 .then(data => {
-                    console.log(data);
+
                     setAdmin(data.admin)
                     setLoading(false);
                 });

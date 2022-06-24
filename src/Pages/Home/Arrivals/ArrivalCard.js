@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const ArrivalCard = ({ arrival, bg, smColor }) => {
     const { name, price, img } = arrival;
     const navigate = useNavigate();
-    console.log(bg);
+
     return (
         <button onClick={() => {
 

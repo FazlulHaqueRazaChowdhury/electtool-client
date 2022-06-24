@@ -27,10 +27,17 @@ import ReviewsRout from './Pages/ReviewsRoute/ReviewsRout';
 import ErrorPage from './Pages/ErrorPage/ErrorPage';
 import Blogs from './Pages/Blogs/Blogs';
 import MyPortfolio from './Pages/MyPortfolio/MyPortfolio';
+import Loading from './Pages/Shared/Loading/Loading';
 function App() {
   const [dark, setDark] = useState(false);
+  const [load, setLoad] = useState(false);
+
   return (
-    <div className="App bg-base-100" data-theme={dark ? 'night' : 'bumblebee'}>
+    <div className="App bg-base-100" data-theme={dark ? 'night' : 'bumblebee'} onLoad={() => {
+      setLoad(true);
+    }}
+
+    >
       <Header dark={dark} setDark={setDark} />
 
       <Routes>

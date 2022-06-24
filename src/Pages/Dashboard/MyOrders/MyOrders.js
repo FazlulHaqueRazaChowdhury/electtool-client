@@ -62,6 +62,7 @@ const MyOrders = () => {
             ]
         })
     }
+
     return (
         <div>
             <h1><span className='text-3xl font-bold'>{user.displayName}</span> Orders</h1>
@@ -74,7 +75,7 @@ const MyOrders = () => {
                             <th>Product Name</th>
                             <th>Total Price</th>
                             <th>Quantity</th>
-                            <th>ACTIons</th>
+                            <th>ACTION</th>
                             <th>transcitionId</th>
                         </tr>
                     </thead>

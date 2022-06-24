@@ -10,12 +10,14 @@ import { signOut } from 'firebase/auth';
 const AddReview = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [user, loading] = useAuthState(auth);
+    const [load, setLoad] = useState(false);
     const [rating, setRating] = useState(1);
     const ratingChanged = (newRating) => {
         setRating(newRating);
 
     };
     const onSubmit = data => {
+
         const review = {
             img: user?.photoURL,
             name: data.name,
@@ -23,20 +25,25 @@ const AddReview = () => {
             desc: data.desc,
             rating: rating
         }
+        setLoad(true);
         axiosPrivate.post('https://arcane-reaches-97312.herokuapp.com/reviews', review)
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
+                    setLoad(false);
                     localStorage.removeItem('accessToken');
                     return signOut(auth);
                 }
                 if (res.data.insertedId) {
+                    setLoad(false);
                     toast.success('Review Added');
-                    reset()
+                    return reset()
                 }
+                toast.error(res.data.message)
+                setLoad(false);
             });
 
     }
-    if (loading) {
+    if (loading || load) {
         return <Loading />
     }
     return (

@@ -13,7 +13,7 @@ const handleSend = (event) => {
     }
     axios.post('https://arcane-reaches-97312.herokuapp.com/email', info)
         .then(res => {
-            console.log(res);
+
             toast.success(res.data.message)
         });
 }

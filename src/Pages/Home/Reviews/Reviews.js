@@ -11,6 +11,7 @@ import ReviewCard from './ReviewCard';
 import axiosPrivate from '../../../api/axiosPrivate';
 import { signOut } from 'firebase/auth';
 import auth from '../../../firebase.init';
+import { Link } from 'react-router-dom';
 const Reviews = () => {
     const [customerReview, setCustomerReview] = useState([]);
 
@@ -26,7 +27,10 @@ const Reviews = () => {
     }, [])
     return (
         <div className='container mx-auto' id='review'>
-            <h1 className='text-4xl font-semi'>Whats Our Customer Says</h1>
+            <div className='flex justify-between'>
+                <h1 className='text-4xl font-semi'>Customer Reviews</h1>
+                <Link to='/reviews' className='btn btn-outline btn-primary'>SEE MORE</Link>
+            </div>
 
             <Swiper
                 slidesPerView={3}

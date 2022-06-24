@@ -35,6 +35,7 @@ const Payment = () => {
     if (isLoading) {
         return <Loading />
     }
+
     if (order) {
         return (
             <div>

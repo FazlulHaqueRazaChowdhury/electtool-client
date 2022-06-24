@@ -28,7 +28,7 @@ const UpdateUser = ({ user, refetch }) => {
             zip: data.zip,
             phone: data.phone,
         }
-        console.log(userInformation.photoURL);
+
         await updateProfile({ displayName: data.name, photoURL: userInformation.photoURL });
         axiosPrivate.patch(`https://arcane-reaches-97312.herokuapp.com/users/${users?.email}`, userInformation)
             .then(res => {
