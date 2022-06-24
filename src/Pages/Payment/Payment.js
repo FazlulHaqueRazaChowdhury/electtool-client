@@ -40,6 +40,7 @@ const Payment = () => {
         return (
             <div>
                 <div className="hero min-h-screen w-full">
+                    <h1 className='text-warning text-4xl text-center'>THIS IS A TEST WEBSITE DO NOT USE YOUR ORIGINAL CREDIT CARD !!!</h1>
                     <div className="hero-content flex-col lg:flex-row-reverse w-full">
                         <div className="card  bg-base-100 shadow-xl">
                             <div className="card-body">

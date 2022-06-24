@@ -3,7 +3,7 @@ import './App.css';
 import Header from './Pages/Shared/Header/Header';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Pages/Home/Home';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Purchase from './Pages/Purchase/Purchase';
 import Footer from './Pages/Shared/Footer/Footer';
 import LogIn from './Pages/Authentication/LogIn/LogIn';
@@ -30,13 +30,23 @@ import MyPortfolio from './Pages/MyPortfolio/MyPortfolio';
 import Loading from './Pages/Shared/Loading/Loading';
 function App() {
   const [dark, setDark] = useState(false);
-  const [load, setLoad] = useState(false);
+  const [load, setLoad] = useState(true);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoad(false);
+    }, 10000)
+
+  }, [])
+  if (load) {
+    return <>
+      <div className='h-[100vh] w-[100vw] absolute bg-white flex justify-center items-center'>
+        <Loading />
+      </div>
+    </>
+  }
   return (
-    <div className="App bg-base-100" data-theme={dark ? 'night' : 'bumblebee'} onLoad={() => {
-      setLoad(true);
-    }}
-
+    <div className="App bg-base-100" data-theme={dark ? 'night' : 'bumblebee'}
     >
       <Header dark={dark} setDark={setDark} />
 

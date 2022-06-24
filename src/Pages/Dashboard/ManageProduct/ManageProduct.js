@@ -49,7 +49,7 @@ const ManageProduct = () => {
     return (
         <div>
             <h1>Hey<span className='text-primary font-bold'> {user?.displayName} ! </span>Manage Your Products!</h1>
-            <div className="overflow-x-auto">
+            <div className="overflow-scroll">
                 <table className="table w-full">
 
                     <thead>

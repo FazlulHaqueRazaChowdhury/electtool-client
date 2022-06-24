@@ -56,9 +56,8 @@ const ManageOrder = () => {
         <div>
             <div>
                 <h1>Hey<span className='text-primary font-bold'> {user?.displayName} ! </span>Manage Your Products!</h1>
-                <div className="overflow-x-auto">
-                    <table className="table w-full">
-
+                <div className="overflow-x-scroll">
+                    <table className="table w-full overflow-x-scroll">
                         <thead>
                             <tr>
                                 <th></th>
