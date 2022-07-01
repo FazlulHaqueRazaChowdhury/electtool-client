@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import auth from '../../../firebase.init';
@@ -10,10 +10,22 @@ import { signOut } from 'firebase/auth';
 import { toast } from 'react-toastify';
 const ManageProduct = () => {
     const [user, loading] = useAuthState(auth);
-    const { data: products, refetch, isLoading } = useQuery('products', () => fetch('https://arcane-reaches-97312.herokuapp.com/products').then(res => res.json()));
+    const [productss,setProducts] = useState([]);
+    const [updated,setUpdated ] = useState(0);
+    const [isLoading,setLoading] = useState(false);
+    useEffect(()=>{
+        setLoading(true);
+        fetch('https://arcane-reaches-97312.herokuapp.com/products')
+        .then(res => res.json())
+        .then(data => {
+            setLoading(false);
+            setProducts(data);
+        })
+    },[updated])
     if (loading || isLoading) {
         return <Loading />
     }
+
     const handleDelete = id => {
 
         confirmAlert({
@@ -31,7 +43,7 @@ const ManageProduct = () => {
                                 }
                                 if (res.data.deletedCount === 1) {
                                     toast.success('Product has been deleted!');
-                                    refetch()
+                                    setUpdated(updated + 1);
                                 }
                             })
 
@@ -64,7 +76,7 @@ const ManageProduct = () => {
                     </thead>
                     <tbody>
                         {
-                            products?.map((product, index) =>
+                            productss?.map((product, index) =>
 
                                 <tr key={product?._id}>
                                     <th>{index + 1}</th>

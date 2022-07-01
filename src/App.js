@@ -39,14 +39,14 @@ function App() {
 
   }, [])
   if (load) {
-    return <>
-      <div className='h-[100vh] w-[100vw] absolute bg-white flex justify-center items-center'>
+    <>
+      <div className='h-[100000vh]  bg-white flex justify-center items-center '>
         <Loading />
       </div>
     </>
   }
   return (
-    <div className="App bg-base-100" data-theme={dark ? 'night' : 'bumblebee'}
+    <div className="App bg-base-100 z-40" data-theme={dark ? 'night' : 'bumblebee'}
     >
       <Header dark={dark} setDark={setDark} />
 
